@@ -16,6 +16,8 @@
 		3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C916326580D4D00B3090F /* CountersListView.swift */; };
 		3B1C916926580D4D00B3090F /* CountersListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */; };
 		3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C919D2658451500B3090F /* CountersBarController.swift */; };
+		3B1C91B32658A28900B3090F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B22658A28900B3090F /* String+Localizable.swift */; };
+		3B1C91B92658A32E00B3090F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B82658A32E00B3090F /* Constants.swift */; };
 		DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3EBACB25E048CE00DA1E0D /* Button.swift */; };
 		DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256B25CC8D4200851431 /* AppDelegate.swift */; };
 		DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256F25CC8D4200851431 /* WelcomeViewController.swift */; };
@@ -55,6 +57,8 @@
 		3B1C916326580D4D00B3090F /* CountersListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersListView.swift; sourceTree = "<group>"; };
 		3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersListViewPresenter.swift; sourceTree = "<group>"; };
 		3B1C919D2658451500B3090F /* CountersBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersBarController.swift; sourceTree = "<group>"; };
+		3B1C91B22658A28900B3090F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		3B1C91B82658A32E00B3090F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DE3EBACB25E048CE00DA1E0D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		DECA256825CC8D4200851431 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA256B25CC8D4200851431 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */,
+				3B1C91B22658A28900B3090F /* String+Localizable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -138,6 +143,14 @@
 				3B1C916326580D4D00B3090F /* CountersListView.swift */,
 			);
 			path = CountersList;
+			sourceTree = "<group>";
+		};
+		3B1C91B72658A31100B3090F /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				3B1C91B82658A32E00B3090F /* Constants.swift */,
+			);
+			path = Commons;
 			sourceTree = "<group>";
 		};
 		DE3EBACA25E048C200DA1E0D /* UIComponents */ = {
@@ -200,6 +213,7 @@
 		DECA25AA25CC8FD600851431 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				3B1C91B72658A31100B3090F /* Commons */,
 				35868D2F25E0522E0028AF1D /* Extensions */,
 				35EAFB7425CC9E0800DCFE10 /* Services */,
 				DECA25AE25CC908800851431 /* AppDelegate */,
@@ -397,6 +411,8 @@
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
 				3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
+				3B1C91B92658A32E00B3090F /* Constants.swift in Sources */,
+				3B1C91B32658A28900B3090F /* String+Localizable.swift in Sources */,
 				3B1C916926580D4D00B3090F /* CountersListViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

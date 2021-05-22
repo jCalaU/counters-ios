@@ -40,7 +40,7 @@ class CountersListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = NSLocalizedString("APP_NAME", comment: "")
+        self.title = "APP_NAME".localized
         
         setupLayout()
         innerView.configure(with: presenter.viewModel)

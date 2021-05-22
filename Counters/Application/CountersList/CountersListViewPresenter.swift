@@ -13,9 +13,9 @@ internal final class CountersListViewPresenter {
 extension CountersListViewPresenter: CountersListViewControllerPresenter {
     var viewModel: CountersListView.ViewModel {
         
-        let title = NSMutableAttributedString(string: NSLocalizedString("APP_NAME", comment: ""))
+        let title = NSMutableAttributedString(string: "APP_NAME".localized)
         
         return .init(title: title,
-                     description: NSLocalizedString("WELCOME_DESCRIPTION", comment: ""))
+                     description: "WELCOME_DESCRIPTION".localized)
     }
 }
