@@ -12,6 +12,10 @@
 		350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */; };
 		35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35868D2725E03F090028AF1D /* WelcomeViewPresenter.swift */; };
 		35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 35EAFB7825CC9E3B00DCFE10 /* Networking.m */; };
+		3B1C916726580D4D00B3090F /* CountersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C916226580D4D00B3090F /* CountersListViewController.swift */; };
+		3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C916326580D4D00B3090F /* CountersListView.swift */; };
+		3B1C916926580D4D00B3090F /* CountersListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */; };
+		3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C919D2658451500B3090F /* CountersBarController.swift */; };
 		DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3EBACB25E048CE00DA1E0D /* Button.swift */; };
 		DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256B25CC8D4200851431 /* AppDelegate.swift */; };
 		DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256F25CC8D4200851431 /* WelcomeViewController.swift */; };
@@ -47,6 +51,10 @@
 		35EAFB7625CC9E3A00DCFE10 /* Counters-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Counters-Bridging-Header.h"; sourceTree = "<group>"; };
 		35EAFB7725CC9E3B00DCFE10 /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
 		35EAFB7825CC9E3B00DCFE10 /* Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Networking.m; sourceTree = "<group>"; };
+		3B1C916226580D4D00B3090F /* CountersListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersListViewController.swift; sourceTree = "<group>"; };
+		3B1C916326580D4D00B3090F /* CountersListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersListView.swift; sourceTree = "<group>"; };
+		3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersListViewPresenter.swift; sourceTree = "<group>"; };
+		3B1C919D2658451500B3090F /* CountersBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersBarController.swift; sourceTree = "<group>"; };
 		DE3EBACB25E048CE00DA1E0D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		DECA256825CC8D4200851431 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA256B25CC8D4200851431 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +129,17 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		3B1C916126580D4D00B3090F /* CountersList */ = {
+			isa = PBXGroup;
+			children = (
+				3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */,
+				3B1C916226580D4D00B3090F /* CountersListViewController.swift */,
+				3B1C919D2658451500B3090F /* CountersBarController.swift */,
+				3B1C916326580D4D00B3090F /* CountersListView.swift */,
+			);
+			path = CountersList;
+			sourceTree = "<group>";
+		};
 		DE3EBACA25E048C200DA1E0D /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +205,7 @@
 				DECA25AE25CC908800851431 /* AppDelegate */,
 				DECA25AD25CC906700851431 /* Launch */,
 				DECA25B225CC910100851431 /* Welcome */,
+				3B1C916126580D4D00B3090F /* CountersList */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -366,14 +386,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1C916726580D4D00B3090F /* CountersListViewController.swift in Sources */,
 				35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */,
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
+				3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
+				3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
+				3B1C916926580D4D00B3090F /* CountersListViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

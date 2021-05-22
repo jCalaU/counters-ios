@@ -22,6 +22,8 @@ internal final class WelcomeView: UIView {
     private let subtitleLabel = UILabel()
     private let stackView = UIStackView()
     private let button = Button()
+    
+    static let NotifPressContinue = NSNotification.Name(rawValue: "PressContinue")
 
     // MARK: - Initialization
     
@@ -169,6 +171,6 @@ private extension WelcomeView {
 
 private extension WelcomeView {
     @objc func didPressContinue() {
-        
+        NotificationCenter.default.post(name: WelcomeView.NotifPressContinue, object: nil)
     }
 }
