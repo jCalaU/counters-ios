@@ -107,7 +107,7 @@ private extension WelcomeView {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.description)
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.textColor = UIColor(named: "SubtitleText")
+        subtitleLabel.textColor = .subtitleText
     }
     
     func setupStackView() {

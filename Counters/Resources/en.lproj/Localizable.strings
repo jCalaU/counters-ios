@@ -20,3 +20,6 @@
 "WELCOME_COUNT_FEATURE_DESCRIPTION" = "Possibilities are literally endless.";
 
 "WELCOME_PRIMARY_ACTION_TITLE" = "Continue";
+
+// MARK: - CountersList
+"COUNTERSLIST_SEARCH" = "Search";

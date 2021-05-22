@@ -77,15 +77,15 @@ private extension CountersListView {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.backgroundColor = UIColor(named: "Background")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
+        tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
     }
     
     func setupSearchController() {
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Clients"
+        searchController.searchBar.placeholder = "COUNTERSLIST_SEARCH".localized
         searchController.searchBar.delegate = self
-        //searchController.view.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupViewHierarchy() {
@@ -129,11 +129,8 @@ extension CountersListView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        cell.textLabel?.text = "info"
-        cell.detailTextLabel?.text = "detail"
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
+        cell.selectionStyle = .none
         return cell
     }
 }

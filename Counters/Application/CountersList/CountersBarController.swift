@@ -14,7 +14,7 @@ final class CountersBarController {
     // MARK: - ToolBar not editing
     private(set) lazy var bottomBarTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: "SecondaryText")
+        label.textColor = .secondaryText
         label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()

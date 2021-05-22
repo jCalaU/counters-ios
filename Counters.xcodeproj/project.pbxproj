@@ -18,6 +18,8 @@
 		3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C919D2658451500B3090F /* CountersBarController.swift */; };
 		3B1C91B32658A28900B3090F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B22658A28900B3090F /* String+Localizable.swift */; };
 		3B1C91B92658A32E00B3090F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B82658A32E00B3090F /* Constants.swift */; };
+		3B1C91BE2658A89A00B3090F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91BD2658A89A00B3090F /* TableViewCell.swift */; };
+		3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */; };
 		DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3EBACB25E048CE00DA1E0D /* Button.swift */; };
 		DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256B25CC8D4200851431 /* AppDelegate.swift */; };
 		DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256F25CC8D4200851431 /* WelcomeViewController.swift */; };
@@ -59,6 +61,8 @@
 		3B1C919D2658451500B3090F /* CountersBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersBarController.swift; sourceTree = "<group>"; };
 		3B1C91B22658A28900B3090F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		3B1C91B82658A32E00B3090F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B1C91BD2658A89A00B3090F /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
 		DE3EBACB25E048CE00DA1E0D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		DECA256825CC8D4200851431 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA256B25CC8D4200851431 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */,
+				3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */,
 				3B1C91B22658A28900B3090F /* String+Localizable.swift */,
 			);
 			path = Extensions;
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				DE3EBACB25E048CE00DA1E0D /* Button.swift */,
+				3B1C91BD2658A89A00B3090F /* TableViewCell.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -400,12 +406,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1C91BE2658A89A00B3090F /* TableViewCell.swift in Sources */,
 				3B1C916726580D4D00B3090F /* CountersListViewController.swift in Sources */,
 				35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */,
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
 				3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */,
+				3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,

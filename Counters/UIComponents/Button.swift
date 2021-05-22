@@ -7,7 +7,7 @@ final class Button: UIButton {
     override var isEnabled: Bool {
         get { super.isEnabled }
         set {
-            backgroundColor = newValue ? ColorConstants.accentColor : ColorConstants.disabledColor
+            backgroundColor = newValue ? .accentColor : ColorConstants.disabledColor
             super.isEnabled = newValue
         }
     }
@@ -50,9 +50,7 @@ final class Button: UIButton {
 private extension Button {
 
     enum ColorConstants {
-        static let accentColor = UIColor(named: "AccentColor")
-        static let textColor = UIColor(named: "ButtonText")
-        static let disabledColor = accentColor?.withAlphaComponent(0.5)
+        static let disabledColor = UIColor.accentColor?.withAlphaComponent(0.5)
     }
 
     enum LayoutConstants {
@@ -71,8 +69,8 @@ private extension Button {
                                          bottom: LayoutConstants.edgeInsets,
                                          right: LayoutConstants.edgeInsets)
         layer.cornerRadius = LayoutConstants.cornerRadius
-        backgroundColor = ColorConstants.accentColor
-        setTitleColor(ColorConstants.textColor, for: .normal)
+        backgroundColor = .accentColor
+        setTitleColor(.buttonText, for: .normal)
         titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: Font.title)
     }
 }

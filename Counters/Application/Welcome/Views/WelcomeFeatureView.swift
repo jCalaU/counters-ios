@@ -84,7 +84,7 @@ private extension WelcomeFeatureView {
     func setupDescriptionLabel() {
         descriptionLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.subtitle)
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.textColor = UIColor(named: "DescriptionText")
+        descriptionLabel.textColor = .descriptionText
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
