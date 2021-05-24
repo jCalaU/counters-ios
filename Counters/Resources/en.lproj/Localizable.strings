@@ -23,3 +23,9 @@
 
 // MARK: - CountersList
 "COUNTERSLIST_SEARCH" = "Search";
+
+// MARK: - CountersCreate
+"COUNTERSCREATE_TITLE" = "Create a counter";
+"COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";
+"COUNTERSCREATE_DESCRIPTION" = "Give it a name: Creative block? See examples.";
+"COUNTERSCREATE_EXAMPLES" = "examples";

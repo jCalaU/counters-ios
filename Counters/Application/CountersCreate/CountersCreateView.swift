@@ -10,14 +10,17 @@ internal final class CountersCreateView: UIView {
     // MARK: - View Model
 
     struct ViewModel {
-        let title: NSAttributedString
-        let description: String
+        let description: NSAttributedString
     }
     
     // MARK: - Properties
 
-    let tableView = UITableView()
-    let searchController = UISearchController(searchResultsController: nil)
+    private let descriptionLabel = UILabel()
+    private let containerView = UIView()
+    let textField = UITextField()
+    let activityIndicator = UIActivityIndicatorView()
+    let stackView = UIStackView()
+
     
     // MARK: - Initialization
     
@@ -34,6 +37,7 @@ internal final class CountersCreateView: UIView {
     // MARK: - Configuration
     
     func configure(with viewModel: ViewModel) {
+        descriptionLabel.attributedText = viewModel.description
     }
 }
 
@@ -47,8 +51,7 @@ private extension CountersCreateView {
     
     enum Font {
         static let kern: CGFloat = 0.34
-        static let title = UIFont.systemFont(ofSize: 33, weight: .heavy)
-        static let description = UIFont.systemFont(ofSize: 17, weight: .regular)
+        static let description = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
     
     enum Shadow {
@@ -63,36 +66,77 @@ private extension CountersCreateView {
 
 private extension CountersCreateView {
     func setup() {
-        backgroundColor = .systemBackground
+        backgroundColor = .background
 
-        setupTableView()
+        setupDescriptionLabel()
+        setupContainerView()
+        setupStackView()
+        setupTextField()
+        setupActivityIndicator()
         setupViewHierarchy()
         setupConstraints()
     }
-        
-    func setupTableView() {
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.backgroundColor = .background
-        tableView.tableFooterView = UIView()
-        tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
+    
+    func setupDescriptionLabel() {
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font.description)
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.lineBreakMode = .byWordWrapping
     }
+    
+    func setupContainerView() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
+        containerView.backgroundColor = .white
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 9
+    }
+    
+    func setupStackView() {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+    }
+    
+    func setupTextField() {
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .preferredFont(forTextStyle: .body)
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityIndicator.hidesWhenStopped = true
+    }
+    
     func setupViewHierarchy() {
-        addSubview(tableView)
-        tableView.tableHeaderView = searchController.searchBar
-        tableView.addSubview(searchController.searchBar)
+        addSubview(containerView)
+        containerView.addSubview(stackView)
+        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(activityIndicator)
+        addSubview(descriptionLabel)
     }
     
     func setupConstraints() {
         let guide = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            // tableview
-            tableView.topAnchor.constraint(equalTo: guide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+            // container view
+            containerView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 20),
+            containerView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10),
+            containerView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
+            
+            // stack view
+            stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            
+            // description label
+            descriptionLabel.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
         ])
     }
 }
