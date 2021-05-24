@@ -20,6 +20,7 @@
 		3B1C91B92658A32E00B3090F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B82658A32E00B3090F /* Constants.swift */; };
 		3B1C91BE2658A89A00B3090F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91BD2658A89A00B3090F /* TableViewCell.swift */; };
 		3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */; };
+		3B3EB977265C0239002149A1 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */; };
 		3BABF429265A962200BE27AA /* CountersCreateViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF425265A962200BE27AA /* CountersCreateViewPresenter.swift */; };
 		3BABF42B265A962200BE27AA /* CountersCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF427265A962200BE27AA /* CountersCreateViewController.swift */; };
 		3BABF42C265A962200BE27AA /* CountersCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF428265A962200BE27AA /* CountersCreateView.swift */; };
@@ -69,6 +70,8 @@
 		3B1C91B82658A32E00B3090F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3B1C91BD2658A89A00B3090F /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
+		3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		3B3EB976265C0239002149A1 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		3BABF425265A962200BE27AA /* CountersCreateViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateViewPresenter.swift; sourceTree = "<group>"; };
 		3BABF427265A962200BE27AA /* CountersCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateViewController.swift; sourceTree = "<group>"; };
 		3BABF428265A962200BE27AA /* CountersCreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateView.swift; sourceTree = "<group>"; };
@@ -165,9 +168,19 @@
 		3B1C91B72658A31100B3090F /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				3B3EB974265C0239002149A1 /* DZNEmptyDataSet */,
 				3B1C91B82658A32E00B3090F /* Constants.swift */,
 			);
 			path = Commons;
+			sourceTree = "<group>";
+		};
+		3B3EB974265C0239002149A1 /* DZNEmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+				3B3EB976265C0239002149A1 /* UIScrollView+EmptyDataSet.h */,
+				3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */,
+			);
+			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
 		3BABF424265A962200BE27AA /* CountersCreate */ = {
@@ -454,6 +467,7 @@
 				3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				3BABF42C265A962200BE27AA /* CountersCreateView.swift in Sources */,
+				3B3EB977265C0239002149A1 /* UIScrollView+EmptyDataSet.m in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
 				3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */,

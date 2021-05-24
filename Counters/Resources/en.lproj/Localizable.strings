@@ -24,6 +24,14 @@
 // MARK: - CountersList
 "COUNTERSLIST_SEARCH" = "Search";
 
+"COUNTERLIST_EMPTY_TITLE" = "No counters yet";
+"COUNTERLIST_EMPTY_SUBTITLE" = "\“When I started counting my blessings, my whole life turned around.\“ \n —Willie Nelson";
+"COUNTERLIST_EMPTY_BUTTON" = "Create a counter";
+
+"COUNTERLIST_ERROR_TITLE" = "Couldn't load the counters";
+"COUNTERLIST_ERROR_SUBTITLE" = "The Internet connection appears to be offline.";
+"COUNTERLIST_ERROR_BUTTON" = "Retry";
+
 // MARK: - CountersCreate
 "COUNTERSCREATE_TITLE" = "Create a counter";
 "COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";

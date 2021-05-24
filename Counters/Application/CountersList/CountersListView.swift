@@ -16,9 +16,15 @@ internal final class CountersListView: UIView {
     
     // MARK: - Properties
 
+    enum ViewState : String {
+        case loading, empty, error, content
+    }
+    
     private let refreshControl = UIRefreshControl()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
+    let currentState : ViewState = .loading
+    let activityIndicator = UIActivityIndicatorView()
     
     // MARK: - Initialization
     
@@ -48,8 +54,10 @@ private extension CountersListView {
     
     enum Font {
         static let kern: CGFloat = 0.34
-        static let title = UIFont.systemFont(ofSize: 33, weight: .heavy)
+        static let title = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        static let subtitle = UIFont.systemFont(ofSize: 17, weight: .regular)
         static let description = UIFont.systemFont(ofSize: 17, weight: .regular)
+        static let button = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
     enum Shadow {
@@ -68,6 +76,7 @@ private extension CountersListView {
 
         setupTableView()
         setupSearchController()
+        setupActivityIndicator()
         setupViewHierarchy()
         setupConstraints()
     }
@@ -86,6 +95,9 @@ private extension CountersListView {
         tableView.backgroundColor = .background
         tableView.tableFooterView = UIView()
         tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
+        
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
     }
     
     func setupSearchController() {
@@ -94,10 +106,18 @@ private extension CountersListView {
         searchController.searchBar.delegate = self
     }
     
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .large
+    }
+    
     func setupViewHierarchy() {
         addSubview(tableView)
         tableView.tableHeaderView = searchController.searchBar
         tableView.addSubview(searchController.searchBar)
+        addSubview(activityIndicator)
     }
     
     func setupConstraints() {
@@ -107,7 +127,13 @@ private extension CountersListView {
             tableView.topAnchor.constraint(equalTo: guide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            
+            // activityIndicator
+            activityIndicator.topAnchor.constraint(equalTo: guide.topAnchor),
+            activityIndicator.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
         ])
     }
 }
@@ -131,7 +157,7 @@ extension CountersListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -157,5 +183,84 @@ extension CountersListView: UISearchResultsUpdating {
 extension CountersListView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         //filterContentForSearchText(searchController.searchBar.text!)
+    }
+}
+
+    // MARK: - DZNEmptyDataSet
+
+extension CountersListView: DZNEmptyDataSetSource {
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        var attributes = [NSAttributedString.Key : Any]()
+        
+        attributes[.foregroundColor] = UIColor.primaryText
+        attributes[.font] = UIFontMetrics(forTextStyle: .headline).scaledFont(for: Font.title)
+        attributes[.kern] = Font.kern
+
+        let text = (currentState == .error) ? "COUNTERLIST_ERROR_TITLE".localized : "COUNTERLIST_EMPTY_TITLE".localized
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        var attributes = [NSAttributedString.Key : Any]()
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .center
+        
+        attributes[.foregroundColor] = UIColor.secondaryText
+        attributes[.font] = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.subtitle)
+        attributes[.kern] = Font.kern
+        attributes[.paragraphStyle] = paragraph
+        
+        let text = (currentState == .error) ? "COUNTERLIST_ERROR_SUBTITLE".localized : "COUNTERLIST_EMPTY_SUBTITLE".localized
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+//    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+//        return UIImage.badge(sytemIcon: "42.circle.fill", color: .redCsm)
+//    }
+    
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
+        var attributes = [NSAttributedString.Key : Any]()
+        attributes[.font] = Font.button
+        attributes[.foregroundColor] = UIColor.white
+        attributes[.kern] = Font.kern
+        
+        let text = (currentState == .error) ? "COUNTERLIST_ERROR_BUTTON".localized : "COUNTERLIST_EMPTY_BUTTON".localized
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
+        let sizeBtn : CGFloat = (currentState == .error) ? -120 : -80
+        
+        let capInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
+        let rectInsets = UIEdgeInsets(top: -20, left: sizeBtn, bottom: -20, right: sizeBtn)
+        
+        if let image = UIImage.badge(sytemIcon: "", color: .accentColor) {
+            return image.resizableImage(withCapInsets: capInsets, resizingMode: .stretch).withAlignmentRectInsets(rectInsets)
+        }
+        return nil
+    }
+}
+
+extension CountersListView: DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        if self.currentState == .loading {
+            self.activityIndicator.startAnimating()
+            return false
+        }
+        return true
+    }
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
+        //self.addCounter()
     }
 }
