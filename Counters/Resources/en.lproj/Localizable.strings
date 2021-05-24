@@ -29,3 +29,25 @@
 "COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";
 "COUNTERSCREATE_DESCRIPTION" = "Give it a name: Creative block? See examples.";
 "COUNTERSCREATE_EXAMPLES" = "examples";
+
+// MARK: - CountersExample
+"COUNTERSEXAMPLE_TITLE" = "Examples";
+"COUNTERSEXAMPLE_SUBTITLE" = "Select an example to add it to your counters.";
+
+"COUNTERSEXAMPLE_DRINKS" = "DRINKS";
+"COUNTERSEXAMPLE_DRINKS_1" = "Cups of coffee";
+"COUNTERSEXAMPLE_DRINKS_2" = "Glasses of water";
+"COUNTERSEXAMPLE_DRINKS_3" = "Hot chocolate";
+"COUNTERSEXAMPLE_DRINKS_4" = "Milk";
+"COUNTERSEXAMPLE_DRINKS_5" = "Beer";
+
+"COUNTERSEXAMPLE_FOOD" = "FOOD";
+"COUNTERSEXAMPLE_FOOD_1" = "Hot-dogs";
+"COUNTERSEXAMPLE_FOOD_2" = "Cupcakes eaten";
+"COUNTERSEXAMPLE_FOOD_3" = "Fruits";
+"COUNTERSEXAMPLE_FOOD_4" = "Nuts";
+
+"COUNTERSEXAMPLE_MISC" = "MISC";
+"COUNTERSEXAMPLE_MISC_1" = "Times sneezed";
+"COUNTERSEXAMPLE_MISC_2" = "Naps";
+"COUNTERSEXAMPLE_MISC_3" = "Blinks";

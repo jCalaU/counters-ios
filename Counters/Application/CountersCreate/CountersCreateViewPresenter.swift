@@ -7,7 +7,6 @@
 import UIKit
 
 internal final class CountersCreateViewPresenter {
-
 }
 
 extension CountersCreateViewPresenter: CountersCreateViewControllerPresenter {

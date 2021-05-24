@@ -10,6 +10,11 @@ protocol CountersCreateViewControllerPresenter {
     var viewModel: CountersCreateView.ViewModel { get }
 }
 
+protocol CounterCreateViewDelegate {
+    func presentCountersExample()
+}
+
+
 class CountersCreateViewController: UIViewController {
 
     // MARK: - Properties
@@ -43,6 +48,7 @@ class CountersCreateViewController: UIViewController {
         
         setupLayout()
         innerView.configure(with: presenter.viewModel)
+        innerView.delegate = self
     }
         
     @objc private func dismissAction() {
@@ -61,6 +67,14 @@ class CountersCreateViewController: UIViewController {
 }
 
     // MARK: - Extension
+
+extension CountersCreateViewController: CounterCreateViewDelegate {
+    func presentCountersExample() {
+        let presenter = CountersExampleViewPresenter()
+        let viewController = CountersExampleViewController(presenter: presenter)
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+}
 
 extension CountersCreateViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

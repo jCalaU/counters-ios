@@ -21,6 +21,7 @@ internal final class CountersCreateView: UIView {
     let activityIndicator = UIActivityIndicatorView()
     let stackView = UIStackView()
 
+    var delegate: CounterCreateViewDelegate?
     
     // MARK: - Initialization
     
@@ -82,6 +83,11 @@ private extension CountersCreateView {
         descriptionLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font.description)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.lineBreakMode = .byWordWrapping
+        
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(didPressExampleLabel))
+        descriptionLabel.isUserInteractionEnabled = true
+        descriptionLabel.addGestureRecognizer(labelTap)
+
     }
     
     func setupContainerView() {
@@ -142,7 +148,7 @@ private extension CountersCreateView {
 }
 
 private extension CountersCreateView {
-    @objc func didPressContinue() {
-        print("here")
+    @objc func didPressExampleLabel() {
+        delegate?.presentCountersExample()
     }
 }

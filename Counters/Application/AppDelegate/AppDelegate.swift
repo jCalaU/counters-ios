@@ -53,6 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let presenter = CountersCreateViewPresenter()
         let viewController = CountersCreateViewController(presenter: presenter)
         navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
-    }
+    }    
 }
 
