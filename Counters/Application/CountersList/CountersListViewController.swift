@@ -18,7 +18,7 @@ class CountersListViewController: UIViewController {
     
     private let presenter: CountersListViewControllerPresenter
     
-    let barController: CountersBarController
+    private let barController : CountersBarController
 
     // MARK: - Initialization
 
@@ -47,7 +47,6 @@ class CountersListViewController: UIViewController {
     }
         
     func setupLayout() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         setupBarControler()
     }
 }
@@ -55,13 +54,13 @@ class CountersListViewController: UIViewController {
     // MARK: - Extension
 
 private extension CountersListViewController {
-    
     func setupBarControler() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.isToolbarHidden = false
         navigationController?.isNavigationBarHidden = false
-                        
+        
         barController.editAction = { [weak self] editing in
-            self?.setEditing(editing, animated: true)
+            self?.innerView.tableView.setEditing(editing, animated: true)
             self?.navigationItem.searchController?.searchBar.isUserInteractionEnabled = !editing
             self?.setupBars()
         }
@@ -69,7 +68,7 @@ private extension CountersListViewController {
     }
     
     func setupBars() {
-        barController.setupBars(self.isEditing)
+        barController.setupBars(innerView.tableView.isEditing)
         toolbarItems = barController.toolbarItems
         navigationItem.leftBarButtonItem = barController.leftBarButtonItem
         navigationItem.rightBarButtonItem = barController.rightBarButtonItem

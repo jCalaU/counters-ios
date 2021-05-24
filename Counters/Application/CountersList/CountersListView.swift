@@ -16,8 +16,8 @@ internal final class CountersListView: UIView {
     
     // MARK: - Properties
 
-    private let tableView = UITableView()
-    private let searchController = UISearchController(searchResultsController: nil)
+    let tableView = UITableView()
+    let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: - Initialization
     
@@ -76,7 +76,9 @@ private extension CountersListView {
         tableView.delegate = self
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.allowsSelection = false
+        tableView.allowsMultipleSelectionDuringEditing = true
+
         tableView.backgroundColor = .background
         tableView.tableFooterView = UIView()
         tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
@@ -130,7 +132,6 @@ extension CountersListView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
-        cell.selectionStyle = .none
         return cell
     }
 }
