@@ -21,6 +21,11 @@ public enum Method: String {
     case GET, POST, PUT, DELETE
 }
 
+public let CountersErrorDomain      : NSErrorDomain = "counters.network.error.domain"
+public let UserAgent                : String = "User-Agent"
+public let ContentType              : String = "Content-Type"
+public let JSONContentType          : String = "application/json"
+
 // Endpoint for Counters
 public let getCountersEndpoint      : String = "/counters"
 public let addCounterEndpoint       : String = "/counter"
@@ -32,4 +37,8 @@ struct CNApiCounters: Codable {
     let count: Int64
     let id: String
     let title: String
+}
+
+enum CountersErrorCode : Int64 {
+    case CountersErrorCodeNoData = -777
 }

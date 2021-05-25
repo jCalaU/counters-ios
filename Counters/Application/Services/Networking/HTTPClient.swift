@@ -41,7 +41,7 @@ class HTTPClient : NSObject, URLSessionDataDelegate, URLSessionTaskDelegate {
     func getSessionConfig() -> URLSessionConfiguration {
         
         let sessionConfig = URLSessionConfiguration.default
-        let additionalHeader :[AnyHashable: Any] = ["User-Agent" : userAgent, "Content-Type" : "application/json"]        
+        let additionalHeader :[AnyHashable: Any] = [UserAgent : userAgent, ContentType : JSONContentType]        
         sessionConfig.httpAdditionalHeaders = additionalHeader
         
         return sessionConfig

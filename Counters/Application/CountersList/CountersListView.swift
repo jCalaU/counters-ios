@@ -25,9 +25,18 @@ internal final class CountersListView: UIView {
     let searchController = UISearchController(searchResultsController: nil)
     var currentState : ViewState = .loading
     let activityIndicator = UIActivityIndicatorView()
+    
     var countersdb: [CNCounters] = []
     var filteredCounters: [CNCounters] = []
-
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+      return searchController.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
+    }
+    
     // MARK: - Initialization
     
     init() {
@@ -103,12 +112,13 @@ private extension CountersListView {
         tableView.backgroundColor = .background
         tableView.tableFooterView = UIView()
         tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
-        
+                
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
     }
     
     func setupSearchController() {
+        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "COUNTERSLIST_SEARCH".localized
         searchController.searchBar.delegate = self
@@ -147,6 +157,16 @@ private extension CountersListView {
 }
 
 private extension CountersListView {
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredCounters = countersdb.filter({( counters : CNCounters) -> Bool in
+            let countersTitle = "\(counters.title!)"
+          return countersTitle.lowercased().contains(searchText.lowercased())
+        })
+
+        tableView.reloadData()
+    }
+    
     @objc private func refreshCountersData(_ sender: Any) {
         print("here")
     }
@@ -165,16 +185,18 @@ extension CountersListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countersdb.count
+        return isFiltering ? filteredCounters.count : countersdb.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
         
-        cell.titleLabel.text = countersdb[indexPath.row].title
-        cell.countLabel.text = "\(countersdb[indexPath.row].count)"
-        cell.countLabel.textColor = countersdb[indexPath.row].count > 0 ? .accentColor : .disabledText
-        cell.setStepperValue(Double(countersdb[indexPath.row].count))
+        let cnCounter : CNCounters = isFiltering ? filteredCounters[indexPath.row] : countersdb[indexPath.row]
+        
+        cell.titleLabel.text = cnCounter.title
+        cell.countLabel.text = "\(cnCounter.count)"
+        cell.countLabel.textColor = cnCounter.count > 0 ? .accentColor : .disabledText
+        cell.setStepperValue(Double(cnCounter.count))
         //cell.onIncrease =
         //cell.onDecrease =
         
@@ -192,13 +214,13 @@ extension CountersListView: UITableViewDelegate {
 
 extension CountersListView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //filterContentForSearchText(searchController.searchBar.text!)
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
 
 extension CountersListView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        //filterContentForSearchText(searchController.searchBar.text!)
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
 
@@ -266,6 +288,8 @@ extension CountersListView: DZNEmptyDataSetDelegate {
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
         if self.currentState == .loading {
             self.activityIndicator.startAnimating()
+            return false
+        } else if isFiltering {
             return false
         }
         return true
