@@ -6,6 +6,10 @@
 
 import UIKit
 
+protocol CounterCreateViewDelegate {
+    func presentCountersExample()
+}
+
 internal final class CountersCreateView: UIView {
     // MARK: - View Model
 

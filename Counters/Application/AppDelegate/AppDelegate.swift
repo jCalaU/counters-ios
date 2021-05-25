@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let presenter = CountersListViewPresenter()
-        let barController = CountersBarController(addAction: presentCountersCreate)
+        let barController = CountersBarController()
         let viewController = CountersListViewController(presenter: presenter, barController: barController)
         navigationController.setViewControllers([viewController], animated: false)
         
@@ -48,11 +48,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             windowApp.rootViewController = self.navigationController
         }
     }
-    
-    private func presentCountersCreate() {
-        let presenter = CountersCreateViewPresenter()
-        let viewController = CountersCreateViewController(presenter: presenter)
-        navigationController.present(UINavigationController(rootViewController: viewController), animated: true)
-    }    
 }
 

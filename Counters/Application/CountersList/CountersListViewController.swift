@@ -45,10 +45,18 @@ class CountersListViewController: UIViewController {
         // Get All Counters
         getAllCountersFromServer()
         
+        barController.addAction = presentCountersCreate
         setupLayout()
         innerView.configure(with: presenter.viewModel)
     }
         
+    private func presentCountersCreate() {
+        let presenter = CountersCreateViewPresenter()
+        let viewController = CountersCreateViewController(presenter: presenter)
+        viewController.countersCreateDelegate = self
+        navigationController?.present(UINavigationController(rootViewController: viewController), animated: true)
+    }
+    
     func setupLayout() {
         setupBarControler()
     }
@@ -83,24 +91,57 @@ private extension CountersListViewController {
 
     func getAllCountersFromServer() {
         
-        HTTPClient.sharedInstance.userRequestToServer(nil,
-                                                      httpMethod: Method.GET.rawValue,
-                                                      endPoint: getCountersEndpoint,
-                                                      onCompletion:
-                                                        HTTPResponse.checkResponse(.getAllCounters,
-                                                                                   onCompletion: {(
-                                                                                    isSuccess: Bool,
-                                                                                    countersArray: [CNApiCounters]) in
+        let completion = HTTPResponse.checkResponse(.getAllCounters, onCompletion: {(isSuccess: Bool, countersArray: [CNApiCounters]) in
             self.innerView.activityIndicator.stopAnimating()
             guard isSuccess else {
                 self.innerView.currentState = .error
+                self.innerView.tableView.reloadData()
                 return
             }
 
             self.innerView.countersdb = CNCoreData.sharedInstance.getCNCounters()
             self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
             self.innerView.tableView.reloadData()
-        }))
+        })
 
+        HTTPClient.sharedInstance.userRequestToServer(nil,
+                                                      httpMethod: Method.GET.rawValue,
+                                                      endPoint: getCountersEndpoint,
+                                                      onCompletion:completion)
+    }
+}
+
+// MARK: - Extension
+
+extension CountersListViewController: CountersCreateViewControllerDelegate {
+    
+    func addCounter(_ viewController: CountersCreateViewController) {
+        
+        guard let title = viewController.innerView.textField.text else { return }
+        let params:[String: Any] = [
+            "title"       : title]
+        
+        viewController.innerView.activityIndicator.startAnimating()
+        
+        let completion = HTTPResponse.checkResponse(.addCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters]) in
+
+            viewController.innerView.activityIndicator.stopAnimating()
+
+            guard isSuccess else {
+                // show message error
+            return
+            }
+
+            self.innerView.countersdb = CNCoreData.sharedInstance.getCNCounters()
+            self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+            self.innerView.tableView.reloadData()
+            
+            viewController.dismiss(animated: true)
+        })
+        
+        HTTPClient.sharedInstance.userRequestToServer(params,
+                                                      httpMethod: Method.POST.rawValue,
+                                                      endPoint: addCounterEndpoint,
+                                                      onCompletion:completion)
     }
 }

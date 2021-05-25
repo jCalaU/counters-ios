@@ -10,20 +10,21 @@ protocol CountersCreateViewControllerPresenter {
     var viewModel: CountersCreateView.ViewModel { get }
 }
 
-protocol CounterCreateViewDelegate {
-    func presentCountersExample()
+protocol CountersCreateViewControllerDelegate {
+    func addCounter(_ viewController: CountersCreateViewController)
 }
-
 
 class CountersCreateViewController: UIViewController {
 
     // MARK: - Properties
 
-    private lazy var innerView = CountersCreateView()
+    var innerView = CountersCreateView()
     
     private let presenter: CountersCreateViewControllerPresenter
 
     private var saveBarButton: UIBarButtonItem?
+
+    var countersCreateDelegate: CountersCreateViewControllerDelegate?
     
     // MARK: - Initialization
 
@@ -56,7 +57,7 @@ class CountersCreateViewController: UIViewController {
     }
     
     @objc private func savePressed() {
-        //presenter.didRequestCounterCreation(title: innerView.textField.text)
+        countersCreateDelegate?.addCounter(self)
     }
     
     func setupLayout() {

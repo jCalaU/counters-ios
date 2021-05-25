@@ -21,7 +21,7 @@ internal final class CountersListView: UIView {
     // MARK: - Properties
     
     private let refreshControl = UIRefreshControl()
-    let tableView = UITableView()
+    var tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     var currentState : ViewState = .loading
     let activityIndicator = UIActivityIndicatorView()
@@ -85,19 +85,13 @@ private extension CountersListView {
     func setup() {
         backgroundColor = .systemBackground
 
-        setupCountersDB()
         setupTableView()
         setupSearchController()
         setupActivityIndicator()
         setupViewHierarchy()
         setupConstraints()
     }
-    
-    func setupCountersDB() {
-        countersdb = CNCoreData.sharedInstance.getCNCounters()
-        
-    }
-        
+            
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -119,7 +113,7 @@ private extension CountersListView {
     
     func setupSearchController() {
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        //searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "COUNTERSLIST_SEARCH".localized
         searchController.searchBar.delegate = self
     }
