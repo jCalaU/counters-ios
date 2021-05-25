@@ -42,6 +42,9 @@ class CountersListViewController: UIViewController {
         
         self.title = "APP_NAME".localized
         
+        // Get All Counters
+        getAllCountersFromServer()
+        
         setupLayout()
         innerView.configure(with: presenter.viewModel)
     }
@@ -72,5 +75,32 @@ private extension CountersListViewController {
         toolbarItems = barController.toolbarItems
         navigationItem.leftBarButtonItem = barController.leftBarButtonItem
         navigationItem.rightBarButtonItem = barController.rightBarButtonItem
+    }
+}
+
+    // MARK: - Extension Network
+private extension CountersListViewController {
+
+    func getAllCountersFromServer() {
+        
+        HTTPClient.sharedInstance.userRequestToServer(nil,
+                                                      httpMethod: Method.GET.rawValue,
+                                                      endPoint: getCountersEndpoint,
+                                                      onCompletion:
+                                                        HTTPResponse.checkResponse(.getAllCounters,
+                                                                                   onCompletion: {(
+                                                                                    isSuccess: Bool,
+                                                                                    countersArray: [CNApiCounters]) in
+            self.innerView.activityIndicator.stopAnimating()
+            guard isSuccess else {
+                self.innerView.currentState = .error
+                return
+            }
+
+            self.innerView.countersdb = CNCoreData.sharedInstance.getCNCounters()
+            self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+            self.innerView.tableView.reloadData()
+        }))
+
     }
 }

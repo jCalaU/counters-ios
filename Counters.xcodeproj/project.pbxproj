@@ -25,6 +25,8 @@
 		3B3EB989265C2821002149A1 /* CountersDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB987265C2821002149A1 /* CountersDB.xcdatamodeld */; };
 		3B3EB98F265C28E0002149A1 /* CNCounters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB98D265C28E0002149A1 /* CNCounters.swift */; };
 		3B3EB9AA265C2C1D002149A1 /* CountersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB9A9265C2C1D002149A1 /* CountersAPI.swift */; };
+		3B3EB9B2265C4146002149A1 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB9B1265C4146002149A1 /* HTTPClient.swift */; };
+		3B3EB9B7265C4154002149A1 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB9B6265C4154002149A1 /* HTTPResponse.swift */; };
 		3BABF429265A962200BE27AA /* CountersCreateViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF425265A962200BE27AA /* CountersCreateViewPresenter.swift */; };
 		3BABF42B265A962200BE27AA /* CountersCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF427265A962200BE27AA /* CountersCreateViewController.swift */; };
 		3BABF42C265A962200BE27AA /* CountersCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF428265A962200BE27AA /* CountersCreateView.swift */; };
@@ -80,6 +82,8 @@
 		3B3EB988265C2821002149A1 /* CountersDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CountersDB.xcdatamodel; sourceTree = "<group>"; };
 		3B3EB98D265C28E0002149A1 /* CNCounters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNCounters.swift; sourceTree = "<group>"; };
 		3B3EB9A9265C2C1D002149A1 /* CountersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersAPI.swift; sourceTree = "<group>"; };
+		3B3EB9B1265C4146002149A1 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		3B3EB9B6265C4154002149A1 /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		3BABF425265A962200BE27AA /* CountersCreateViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateViewPresenter.swift; sourceTree = "<group>"; };
 		3BABF427265A962200BE27AA /* CountersCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateViewController.swift; sourceTree = "<group>"; };
 		3BABF428265A962200BE27AA /* CountersCreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersCreateView.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				3B3EB9A9265C2C1D002149A1 /* CountersAPI.swift */,
+				3B3EB9B1265C4146002149A1 /* HTTPClient.swift */,
+				3B3EB9B6265C4154002149A1 /* HTTPResponse.swift */,
 				35EAFB7725CC9E3B00DCFE10 /* Networking.h */,
 				35EAFB7825CC9E3B00DCFE10 /* Networking.m */,
 			);
@@ -484,6 +490,7 @@
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
+				3B3EB9B2265C4146002149A1 /* HTTPClient.swift in Sources */,
 				3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */,
 				3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
@@ -494,6 +501,7 @@
 				3B3EB989265C2821002149A1 /* CountersDB.xcdatamodeld in Sources */,
 				3B3EB98F265C28E0002149A1 /* CNCounters.swift in Sources */,
 				3B1C919E2658451500B3090F /* CountersBarController.swift in Sources */,
+				3B3EB9B7265C4154002149A1 /* HTTPResponse.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
 				3B1C91B92658A32E00B3090F /* Constants.swift in Sources */,
 				3B1C91B32658A28900B3090F /* String+Localizable.swift in Sources */,

@@ -52,7 +52,7 @@ class CNCoreData {
     }
     
     // MARK: - Functions
-    
+        
     // Get current CNCounters
     func getCNCounters() -> [CNCounters] {
     

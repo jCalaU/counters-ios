@@ -6,6 +6,10 @@
 
 import UIKit
 
+enum ViewState : String {
+    case loading, empty, error, content
+}
+
 internal final class CountersListView: UIView {
     // MARK: - View Model
 
@@ -15,17 +19,15 @@ internal final class CountersListView: UIView {
     }
     
     // MARK: - Properties
-
-    enum ViewState : String {
-        case loading, empty, error, content
-    }
     
     private let refreshControl = UIRefreshControl()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
-    let currentState : ViewState = .loading
+    var currentState : ViewState = .loading
     let activityIndicator = UIActivityIndicatorView()
-    
+    var countersdb: [CNCounters] = []
+    var filteredCounters: [CNCounters] = []
+
     // MARK: - Initialization
     
     init() {
@@ -74,11 +76,17 @@ private extension CountersListView {
     func setup() {
         backgroundColor = .systemBackground
 
+        setupCountersDB()
         setupTableView()
         setupSearchController()
         setupActivityIndicator()
         setupViewHierarchy()
         setupConstraints()
+    }
+    
+    func setupCountersDB() {
+        countersdb = CNCoreData.sharedInstance.getCNCounters()
+        
     }
         
     func setupTableView() {
@@ -157,11 +165,19 @@ extension CountersListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return countersdb.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
+        
+        cell.titleLabel.text = countersdb[indexPath.row].title
+        cell.countLabel.text = "\(countersdb[indexPath.row].count)"
+        cell.countLabel.textColor = countersdb[indexPath.row].count > 0 ? .accentColor : .disabledText
+        cell.setStepperValue(Double(countersdb[indexPath.row].count))
+        //cell.onIncrease =
+        //cell.onDecrease =
+        
         return cell
     }
 }
