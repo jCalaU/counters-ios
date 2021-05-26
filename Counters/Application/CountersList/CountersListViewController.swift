@@ -47,10 +47,20 @@ class CountersListViewController: UIViewController {
         
         barController.addAction = presentCountersCreate
         barController.deleteAction = askDeleteCounter
+        barController.selectAllAction = selectAllCounter
+        
         setupLayout()
         innerView.configure(with: presenter.viewModel)
     }
         
+    private func selectAllCounter() {
+        let totalRows = innerView.tableView.numberOfRows(inSection: 0)
+            
+        for row in 0..<totalRows {
+            innerView.tableView.selectRow(at: NSIndexPath(row: row, section: 0) as IndexPath, animated: false, scrollPosition:UITableView.ScrollPosition.none)
+        }
+    }
+    
     private func presentCountersCreate() {
         let presenter = CountersCreateViewPresenter()
         let viewController = CountersCreateViewController(presenter: presenter)
@@ -70,11 +80,11 @@ class CountersListViewController: UIViewController {
         actionSheetController.addAction(cancelActionButton)
 
         // Delete Action
-        let counterTxt = (indexPaths.count == 1) ? "COUNTERLIST_ALERT_COUNTER".localized : "COUNTERLIST_ALERT_COUNTERS".localized
-        let deleteActionTitle = "COUNTERLIST_ALERT_DELETE".localized + " \(indexPaths.count) " + counterTxt
+        let selectedRows = indexPaths.count
+        let deleteActionTitle = (selectedRows == 1) ? String(format: "COUNTERLIST_ALERT_DELETE_COUNTER".localized, selectedRows) : String(format: "COUNTERLIST_ALERT_DELETE_COUNTERS".localized, selectedRows)
         
         let deleteActionButton = UIAlertAction(title: deleteActionTitle, style: .destructive) { _ in
-            self.deleteCounter()
+            DispatchQueue.main.async { self.deleteCounter() }
         }
         actionSheetController.addAction(deleteActionButton)
         
@@ -99,6 +109,7 @@ class CountersListViewController: UIViewController {
                     
                     self.innerView.countersdb = self.getCounterCellPresenter()
                     self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+                    self.barController.setBarTitle(self.getBarBottomTitle())
                     self.innerView.tableView.reloadData()
                 }
             })
@@ -133,9 +144,33 @@ private extension CountersListViewController {
     
     func setupBars() {
         barController.setupBars(innerView.tableView.isEditing)
+        let bottomTitle = getBarBottomTitle()
+        barController.setBarTitle(bottomTitle)
+
         toolbarItems = barController.toolbarItems
         navigationItem.leftBarButtonItem = barController.leftBarButtonItem
         navigationItem.rightBarButtonItem = barController.rightBarButtonItem
+    }
+    
+    func getBarBottomTitle() -> String {
+        
+        guard !innerView.tableView.isEditing else {
+            return ""
+        }
+        
+        guard self.innerView.countersdb.count != 0 else {
+            return ""
+        }
+        
+        var sumCounters : Int64 = 0
+        for counter in self.innerView.countersdb {
+            sumCounters += counter.countersdb.count
+        }
+        
+        let bottomTitle = self.innerView.countersdb.count == 1 ? "COUNTERLIST_BOTTOM_TITLE_ITEM".localized : "COUNTERLIST_BOTTOM_TITLE_ITEMS".localized
+        let text = String(format: bottomTitle, self.innerView.countersdb.count, sumCounters)
+        
+        return text
     }
 }
 
@@ -148,6 +183,7 @@ extension CountersListViewController : CounterCellPresenterDelegate {
         if self.innerView.isFiltering {
             self.innerView.filterContentForSearchText(self.innerView.searchController.searchBar.text!)
         }
+        self.barController.setBarTitle(getBarBottomTitle())
         self.innerView.tableView.reloadData()
     }
 }
@@ -174,12 +210,14 @@ private extension CountersListViewController {
             self.innerView.activityIndicator.stopAnimating()
             guard isSuccess else {
                 self.innerView.currentState = .error
+                self.barController.setBarTitle(self.getBarBottomTitle())
                 self.innerView.tableView.reloadData()
                 return
             }
 
             self.innerView.countersdb = self.getCounterCellPresenter()
             self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+            self.barController.setBarTitle(self.getBarBottomTitle())
             self.innerView.tableView.reloadData()
         })
 
@@ -213,6 +251,7 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
 
             self.innerView.countersdb = self.getCounterCellPresenter()
             self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+            self.barController.setBarTitle(self.getBarBottomTitle())
             self.innerView.tableView.reloadData()
             
             viewController.dismiss(animated: true)
