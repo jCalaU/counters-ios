@@ -46,6 +46,7 @@ class CountersListViewController: UIViewController {
         getAllCountersFromServer()
         
         barController.addAction = presentCountersCreate
+        barController.deleteAction = askDeleteCounter
         setupLayout()
         innerView.configure(with: presenter.viewModel)
     }
@@ -55,6 +56,58 @@ class CountersListViewController: UIViewController {
         let viewController = CountersCreateViewController(presenter: presenter)
         viewController.countersCreateDelegate = self
         navigationController?.present(UINavigationController(rootViewController: viewController), animated: true)
+    }
+    
+    private func askDeleteCounter() {
+        guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
+        
+        // Cancel Action
+        let actionSheetController: UIAlertController = UIAlertController(title: "".localized, message: "", preferredStyle: .actionSheet)
+
+        let cancelActionButton = UIAlertAction(title: "Cancel".localized, style: .cancel) { _ in
+            Logger("Cancel")
+        }
+        actionSheetController.addAction(cancelActionButton)
+
+        // Delete Action
+        let counterTxt = (indexPaths.count == 1) ? "COUNTERLIST_ALERT_COUNTER".localized : "COUNTERLIST_ALERT_COUNTERS".localized
+        let deleteActionTitle = "COUNTERLIST_ALERT_DELETE".localized + " \(indexPaths.count) " + counterTxt
+        
+        let deleteActionButton = UIAlertAction(title: deleteActionTitle, style: .destructive) { _ in
+            self.deleteCounter()
+        }
+        actionSheetController.addAction(deleteActionButton)
+        
+        self.present(actionSheetController, animated: true, completion: nil)
+    }
+    
+    private func deleteCounter() {
+        guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
+        for indexPath in indexPaths {
+            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterCell else { return }
+
+            guard let idCounter = cell.counterId else { return }
+            let params:[String: Any] = ["id" : idCounter]
+                    
+            let completion = HTTPResponse.checkResponse(.delCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters]) in
+
+                DispatchQueue.main.async {
+                    guard isSuccess else {
+                        // show message error
+                    return
+                    }
+                    
+                    self.innerView.countersdb = self.getCounterCellPresenter()
+                    self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+                    self.innerView.tableView.reloadData()
+                }
+            })
+
+            HTTPClient.sharedInstance.userRequestToServer(params,
+                                                          httpMethod: Method.DELETE.rawValue,
+                                                          endPoint: addCounterEndpoint,
+                                                          onCompletion:completion)
+        }
     }
     
     func setupLayout() {

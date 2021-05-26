@@ -32,6 +32,10 @@
 "COUNTERLIST_ERROR_SUBTITLE" = "The Internet connection appears to be offline.";
 "COUNTERLIST_ERROR_BUTTON" = "Retry";
 
+"COUNTERLIST_ALERT_DELETE" = "Delete";
+"COUNTERLIST_ALERT_COUNTER" = "counter";
+"COUNTERLIST_ALERT_COUNTERS" = "counters";
+
 // MARK: - CountersCreate
 "COUNTERSCREATE_TITLE" = "Create a counter";
 "COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";

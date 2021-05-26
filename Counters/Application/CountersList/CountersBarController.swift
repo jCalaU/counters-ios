@@ -38,7 +38,8 @@ final class CountersBarController {
     
     var addAction: (() -> Void)?
     var editAction: ((Bool) -> Void)?
-        
+    var deleteAction: (() -> Void)?
+    
     func setBarTitle(_ title: String?) {
         //bottomBarTitleLabel.text = title
         //bottomBarTitleLabel.sizeToFit()
@@ -61,7 +62,7 @@ final class CountersBarController {
     }
     
     @objc private func deleteButtonPressed() {
-        
+        deleteAction?()
     }
     
     @objc private func shareButtonPressed() {
