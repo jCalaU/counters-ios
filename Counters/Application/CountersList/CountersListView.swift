@@ -26,8 +26,8 @@ internal final class CountersListView: UIView {
     var currentState : ViewState = .loading
     let activityIndicator = UIActivityIndicatorView()
     
-    var countersdb: [CNCounters] = []
-    var filteredCounters: [CNCounters] = []
+    var countersdb: [CounterCellPresenter] = []
+    var filteredCounters: [CounterCellPresenter] = []
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -113,7 +113,7 @@ private extension CountersListView {
     
     func setupSearchController() {
         searchController.searchResultsUpdater = self
-        //searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "COUNTERSLIST_SEARCH".localized
         searchController.searchBar.delegate = self
     }
@@ -150,11 +150,11 @@ private extension CountersListView {
     }
 }
 
-private extension CountersListView {
+extension CountersListView {
     
     func filterContentForSearchText(_ searchText: String) {
-        filteredCounters = countersdb.filter({( counters : CNCounters) -> Bool in
-            let countersTitle = "\(counters.title!)"
+        filteredCounters = countersdb.filter({( c : CounterCellPresenter ) -> Bool in
+            let countersTitle = "\(c.countersdb.title!)"
           return countersTitle.lowercased().contains(searchText.lowercased())
         })
 
@@ -185,17 +185,18 @@ extension CountersListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
         
-        let cnCounter : CNCounters = isFiltering ? filteredCounters[indexPath.row] : countersdb[indexPath.row]
+        let cnCounter : CNCounters = isFiltering ? filteredCounters[indexPath.row].countersdb : countersdb[indexPath.row].countersdb
         
+        cell.counterId = cnCounter.id
         cell.titleLabel.text = cnCounter.title
         cell.countLabel.text = "\(cnCounter.count)"
         cell.countLabel.textColor = cnCounter.count > 0 ? .accentColor : .disabledText
         cell.setStepperValue(Double(cnCounter.count))
-        //cell.onIncrease =
-        //cell.onDecrease =
+        cell.onIncrease = isFiltering ? filteredCounters[indexPath.row].requestCounterIncrease : countersdb[indexPath.row].requestCounterIncrease
+        cell.onDecrease = isFiltering ? filteredCounters[indexPath.row].requestCounterDecrease : countersdb[indexPath.row].requestCounterDecrease
         
         return cell
-    }
+    }    
 }
 
 extension CountersListView: UITableViewDelegate {

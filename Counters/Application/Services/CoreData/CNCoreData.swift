@@ -12,13 +12,15 @@ class CNCoreData {
     
     // MARK: - Properties
 
-    var managedObjectContext: NSManagedObjectContext!
+    let managedObjectContext: NSManagedObjectContext
 
     static let sharedInstance = CNCoreData()
     
     // MARK: - Initialization
     
     fileprivate init() {
+        
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         
         // This resource is the same name as your xcdatamodeld contained in your project.
         guard let modelURL = Bundle.main.url(forResource: "CountersDB", withExtension:"momd") else {
@@ -33,7 +35,7 @@ class CNCoreData {
         
         let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
         let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+
         managedObjectContext.persistentStoreCoordinator = psc
         
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -52,13 +54,16 @@ class CNCoreData {
     }
     
     // MARK: - Functions
-        
+
     // Get current CNCounters
     func getCNCounters() -> [CNCounters] {
     
-        var fetchedObjects  = [CNCounters]()
+        var fetchedObjects = [CNCounters]()
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest()
                 
+        let idSort = NSSortDescriptor(key: "id", ascending: true)
+        fetchRequest.sortDescriptors = [idSort]
+        
         guard let entity = NSEntityDescription.entity(forEntityName: "CNCounters", in:managedObjectContext) else {
             return fetchedObjects
         }
@@ -66,23 +71,21 @@ class CNCoreData {
         fetchRequest.entity = entity
         
         do {
-            if let context = managedObjectContext {
-                fetchedObjects = try context.fetch(fetchRequest) as! [CNCounters]
-            }
+            fetchedObjects = try managedObjectContext.fetch(fetchRequest) as! [CNCounters]
         } catch let error as NSError {
             Logger("CoreData cncounters error: \(error.localizedDescription)")
         }
         
         return fetchedObjects
     }
-
+    
     // Set CNCounters
     func setCNCounters(_ array:[CNApiCounters]) {
         // Delete local counters
         let context = CNCoreData.sharedInstance.managedObjectContext
         let countersdb = CNCoreData.sharedInstance.getCNCounters()
         for counter in countersdb {
-            context?.delete(counter)
+            context.delete(counter)
         }
         
         for item in array {
@@ -109,7 +112,7 @@ class CNCoreData {
         let context = CNCoreData.sharedInstance.managedObjectContext
         let countersdb = CNCoreData.sharedInstance.getCNCounters()
         for counter in countersdb {
-            context?.delete(counter)
+            context.delete(counter)
         }
         // Save CoreData
         do {

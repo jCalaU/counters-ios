@@ -55,7 +55,7 @@ class HTTPResponse {
             onCompletion(isResponseSuccess, [CNApiCounters]())
             return
         }
-        
+                
         do {
             guard let dataResponse = data else {
                 return

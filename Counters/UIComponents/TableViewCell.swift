@@ -12,6 +12,7 @@ final class CounterCell: UITableViewCell {
     let titleLabel = UILabel()
     let countLabel = UILabel()
     let stepper = UIStepper()
+    var counterId: String?
     
     private var previusStepperValue = 0.0
     
@@ -87,6 +88,7 @@ private extension CounterCell {
         countLabel.textColor = .accentColor
         countLabel.textAlignment = .right
         countLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        countLabel.adjustsFontSizeToFitWidth = true
         countLabel.adjustsFontForContentSizeCategory = true
     }
     
@@ -95,6 +97,7 @@ private extension CounterCell {
         
         stepper.autorepeat = false
         stepper.isContinuous = false
+        stepper.maximumValue = Double.infinity
         stepper.wraps = false
         stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
     }

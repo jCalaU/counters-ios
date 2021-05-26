@@ -86,9 +86,35 @@ private extension CountersListViewController {
     }
 }
 
+// MARK: - CounterCellPresenterDelegate
+extension CountersListViewController : CounterCellPresenterDelegate {
+    
+    func reloadTableView() {
+        self.innerView.countersdb = self.getCounterCellPresenter()
+        self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
+        if self.innerView.isFiltering {
+            self.innerView.filterContentForSearchText(self.innerView.searchController.searchBar.text!)
+        }
+        self.innerView.tableView.reloadData()
+    }
+}
+
     // MARK: - Extension Network
 private extension CountersListViewController {
 
+    func getCounterCellPresenter() -> [CounterCellPresenter] {
+    
+        var counterCellArray = [CounterCellPresenter]()
+        let fetchedObjects = CNCoreData.sharedInstance.getCNCounters()
+        for obj in fetchedObjects {
+            let counterCell = CounterCellPresenter(obj)
+            counterCell.delegate = self
+            counterCellArray.append(counterCell)
+        }
+        
+        return counterCellArray
+    }
+    
     func getAllCountersFromServer() {
         
         let completion = HTTPResponse.checkResponse(.getAllCounters, onCompletion: {(isSuccess: Bool, countersArray: [CNApiCounters]) in
@@ -99,7 +125,7 @@ private extension CountersListViewController {
                 return
             }
 
-            self.innerView.countersdb = CNCoreData.sharedInstance.getCNCounters()
+            self.innerView.countersdb = self.getCounterCellPresenter()
             self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
             self.innerView.tableView.reloadData()
         })
@@ -132,7 +158,7 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
             return
             }
 
-            self.innerView.countersdb = CNCoreData.sharedInstance.getCNCounters()
+            self.innerView.countersdb = self.getCounterCellPresenter()
             self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
             self.innerView.tableView.reloadData()
             
