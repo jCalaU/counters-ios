@@ -6,7 +6,10 @@
 
 import UIKit
 
-final class CounterCell: UITableViewCell {
+final class CounterTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
+    
     private let containerView = UIView()
     private let separatorView = UIView()
     let titleLabel = UILabel()
@@ -19,6 +22,8 @@ final class CounterCell: UITableViewCell {
     var onIncrease: (() -> Void)?
     var onDecrease: (() -> Void)?
     
+    // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -28,6 +33,8 @@ final class CounterCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Internal Methods
     
     func setStepperValue(_ value: Double) {
         stepper.value = value
@@ -43,7 +50,9 @@ final class CounterCell: UITableViewCell {
     }
 }
 
-private extension CounterCell {
+// MARK: - Private definitions
+
+private extension CounterTableViewCell {
     func setup() {
         multipleSelectionBackgroundView = UIView()
         multipleSelectionBackgroundView?.backgroundColor = .clear

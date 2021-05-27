@@ -73,7 +73,18 @@ extension CountersCreateViewController: CounterCreateViewDelegate {
     func presentCountersExample() {
         let presenter = CountersExampleViewPresenter()
         let viewController = CountersExampleViewController(presenter: presenter)
+        viewController.innerView.delegate = self
         self.navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+// MARK: - Extension
+
+extension CountersCreateViewController: CountersExampleViewDelegate {
+    func selectedExampleTag(_ tag: String) {
+        self.innerView.textField.text = tag
+        saveBarButton?.isEnabled = true
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

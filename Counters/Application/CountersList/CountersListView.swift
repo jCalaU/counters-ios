@@ -105,7 +105,7 @@ private extension CountersListView {
 
         tableView.backgroundColor = .background
         tableView.tableFooterView = UIView()
-        tableView.register(CounterCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(CounterTableViewCell.self, forCellReuseIdentifier: "Cell")
                 
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
@@ -183,7 +183,7 @@ extension CountersListView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CounterTableViewCell
         
         let cnCounter : CNCounters = isFiltering ? filteredCounters[indexPath.row].countersdb : countersdb[indexPath.row].countersdb
         

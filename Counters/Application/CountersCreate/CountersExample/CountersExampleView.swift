@@ -6,6 +6,10 @@
 
 import UIKit
 
+protocol CountersExampleViewDelegate {
+    func selectedExampleTag(_ tag: String)
+}
+
 internal final class CountersExampleView: UIView {
     // MARK: - View Model
 
@@ -15,12 +19,12 @@ internal final class CountersExampleView: UIView {
     
     // MARK: - Properties
 
+    let tagsExamples = TagsExampleJSON.tagsExampleJSON()
+    
     private let descriptionLabel = UILabel()
-    private let containerView = UIView()
-    let textField = UITextField()
-    let activityIndicator = UIActivityIndicatorView()
-    let stackView = UIStackView()
-
+    private var tableView = UITableView()
+    
+    var delegate: CountersExampleViewDelegate?
     
     // MARK: - Initialization
     
@@ -46,19 +50,12 @@ internal final class CountersExampleView: UIView {
 private extension CountersExampleView {
     enum Constants {
         static let spacing: CGFloat = 24
-        static let stackViewTopMargin: CGFloat = 45
+        static let descriptionHeight: CGFloat = 50
     }
     
     enum Font {
         static let kern: CGFloat = 0.34
         static let description = UIFont.systemFont(ofSize: 14, weight: .regular)
-    }
-    
-    enum Shadow {
-        static let opacity: Float = 1
-        static let radius: CGFloat = 16
-        static let offset = CGSize(width: 0, height: 8)
-        static let color = UIColor(white: 0, alpha: 0.1).cgColor
     }
 }
 
@@ -69,10 +66,7 @@ private extension CountersExampleView {
         backgroundColor = .background
 
         setupDescriptionLabel()
-        setupContainerView()
-        setupStackView()
-        setupTextField()
-        setupActivityIndicator()
+        setupTableView()
         setupViewHierarchy()
         setupConstraints()
     }
@@ -80,69 +74,116 @@ private extension CountersExampleView {
     func setupDescriptionLabel() {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font.description)
+        descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.lineBreakMode = .byWordWrapping        
+        descriptionLabel.lineBreakMode = .byWordWrapping
+
+        descriptionLabel.layer.masksToBounds = true
+        descriptionLabel.layer.borderColor = UIColor.lightGray.cgColor
+        descriptionLabel.layer.borderWidth = 0.5
     }
     
-    func setupContainerView() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+    func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.allowsSelection = false
+        tableView.alwaysBounceVertical = false
+
+        tableView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
+        tableView.register(TagTableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
         
-        containerView.backgroundColor = .white
-        containerView.clipsToBounds = true
-        containerView.layer.cornerRadius = 9
-    }
-    
-    func setupStackView() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 5
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-    }
-    
-    func setupTextField() {
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = .preferredFont(forTextStyle: .body)
-    }
-    
-    func setupActivityIndicator() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
-        activityIndicator.hidesWhenStopped = true
-    }
-    
     func setupViewHierarchy() {
-        addSubview(containerView)
-        containerView.addSubview(stackView)
-        stackView.addArrangedSubview(textField)
-        stackView.addArrangedSubview(activityIndicator)
         addSubview(descriptionLabel)
+        addSubview(tableView)
     }
     
     func setupConstraints() {
         let guide = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             // container view
-            containerView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 20),
-            containerView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10),
-            containerView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
+            descriptionLabel.heightAnchor.constraint(
+                greaterThanOrEqualToConstant: Constants.descriptionHeight
+            ),
+            descriptionLabel.topAnchor.constraint(equalTo: guide.topAnchor, constant: 0),
+            descriptionLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: 0),
+            descriptionLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0),
             
-            // stack view
-            stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            
-            // description label
-            descriptionLabel.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
-            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+            // collectionView
+            tableView.topAnchor.constraint(
+                equalTo: descriptionLabel.bottomAnchor,
+                constant: Constants.spacing
+            ),
+            tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
         ])
     }
 }
 
-private extension CountersExampleView {
-    @objc func didPressExampleLabel() {
-        print("here")
+// MARK: - UITableView Delegates
+
+extension CountersExampleView: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tagsExamples.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TagTableViewCell
+        cell.collectionView.tag = indexPath.section
+        cell.collectionView.delegate = self
+        cell.collectionView.dataSource = self
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tagsExamples[section].title_section
+    }
+}
+
+extension CountersExampleView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 12, weight: .regular))
+        header.textLabel?.textColor = .subtitleText
+        view.tintColor = .background
+    }
+}
+
+extension CountersExampleView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tagsExamples[collectionView.tag].tags.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 5)
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! TagCollectionViewCell
+        cell.titleLabel.text  = tagsExamples[collectionView.tag].tags[indexPath.row]
+        cell.backgroundColor = .white
+        cell.layer.cornerRadius = 9
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TagCollectionViewCell else { return }
+        guard let text = cell.titleLabel.text else { return }
+        delegate?.selectedExampleTag(text)
     }
 }

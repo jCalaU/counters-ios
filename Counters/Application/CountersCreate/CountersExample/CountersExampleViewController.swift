@@ -14,7 +14,7 @@ class CountersExampleViewController: UIViewController {
 
     // MARK: - Properties
 
-    private lazy var innerView = CountersExampleView()
+    var innerView = CountersExampleView()
     
     private let presenter: CountersExampleViewControllerPresenter
     
@@ -47,13 +47,5 @@ class CountersExampleViewController: UIViewController {
         navigationController?.isToolbarHidden = false
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.backItem?.title = "COUNTERSCREATE_TITLE".localized
-        setup()
-    }
-}
-
-    // MARK: - Extension
-
-private extension CountersExampleViewController {
-    func setup() {
     }
 }

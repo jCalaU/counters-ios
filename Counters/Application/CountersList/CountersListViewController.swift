@@ -59,7 +59,7 @@ class CountersListViewController: UIViewController {
         guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
         var countersTxt = [String]()
         for indexPath in indexPaths {
-            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterCell else { return }
+            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterTableViewCell else { return }
             
             let txt = cell.countLabel.text! + " x " + cell.titleLabel.text!
             countersTxt.append(txt)
@@ -111,7 +111,7 @@ class CountersListViewController: UIViewController {
     private func deleteCounter() {
         guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
         for indexPath in indexPaths {
-            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterCell else { return }
+            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterTableViewCell else { return }
 
             guard let idCounter = cell.counterId else { return }
             let params:[String: Any] = ["id" : idCounter]
