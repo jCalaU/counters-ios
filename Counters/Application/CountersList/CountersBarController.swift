@@ -40,6 +40,7 @@ final class CountersBarController {
     var editAction: ((Bool) -> Void)?
     var deleteAction: (() -> Void)?
     var selectAllAction: (() -> Void)?
+    var shareAction: (() -> Void)?
     
     func setBarTitle(_ title: String?) {
         bottomBarTitleLabel.text = title
@@ -67,7 +68,7 @@ final class CountersBarController {
     }
     
     @objc private func shareButtonPressed() {
-        
+        shareAction?()
     }
 }
 

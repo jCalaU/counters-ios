@@ -48,11 +48,28 @@ class CountersListViewController: UIViewController {
         barController.addAction = presentCountersCreate
         barController.deleteAction = askDeleteCounter
         barController.selectAllAction = selectAllCounter
+        barController.shareAction = shareCounter
         
         setupLayout()
         innerView.configure(with: presenter.viewModel)
     }
         
+    private func shareCounter() {
+        
+        guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
+        var countersTxt = [String]()
+        for indexPath in indexPaths {
+            guard let cell = self.innerView.tableView.cellForRow(at: NSIndexPath(row: indexPath.row, section: indexPath.section) as IndexPath) as? CounterCell else { return }
+            
+            let txt = cell.countLabel.text! + " x " + cell.titleLabel.text!
+            countersTxt.append(txt)
+        }
+        let activityViewController = UIActivityViewController(activityItems: countersTxt, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.innerView
+
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
     private func selectAllCounter() {
         let totalRows = innerView.tableView.numberOfRows(inSection: 0)
             
