@@ -20,6 +20,7 @@
 		3B1C91B92658A32E00B3090F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91B82658A32E00B3090F /* Constants.swift */; };
 		3B1C91BE2658A89A00B3090F /* CounterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91BD2658A89A00B3090F /* CounterTableViewCell.swift */; };
 		3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */; };
+		3B22EB2C26615DDD00A14FA2 /* UserDefaults+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */; };
 		3B2431CB265DFCF50052C13F /* CounterCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */; };
 		3B3EB977265C0239002149A1 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */; };
 		3B3EB980265C27C7002149A1 /* CNCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB97F265C27C7002149A1 /* CNCoreData.swift */; };
@@ -81,6 +82,7 @@
 		3B1C91B82658A32E00B3090F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3B1C91BD2658A89A00B3090F /* CounterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTableViewCell.swift; sourceTree = "<group>"; };
 		3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
+		3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Config.swift"; sourceTree = "<group>"; };
 		3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCellPresenter.swift; sourceTree = "<group>"; };
 		3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		3B3EB976265C0239002149A1 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */,
 				3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */,
 				3B1C91B22658A28900B3090F /* String+Localizable.swift */,
+				3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B22EB2C26615DDD00A14FA2 /* UserDefaults+Config.swift in Sources */,
 				3B706B752660259300ECD201 /* CountersExampleData.swift in Sources */,
 				3B1C91BE2658A89A00B3090F /* CounterTableViewCell.swift in Sources */,
 				3B1C916726580D4D00B3090F /* CountersListViewController.swift in Sources */,

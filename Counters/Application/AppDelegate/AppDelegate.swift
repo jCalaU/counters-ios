@@ -18,25 +18,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Initialization
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        // Notif WelcomeView > PressContinue Button
-        NotificationCenter.default.addObserver(self, selector:#selector(WelcomeViewPressContinue(notification:)),name:WelcomeView.NotifPressContinue,object: nil)
-            
+        
         // Start UIWindow
         let window = UIWindow()
-        let presenter = WelcomeViewPresenter()
-        window.rootViewController = WelcomeViewController(presenter: presenter)
+        window.tintColor = .accentColor
+        window.rootViewController = getRootViewController()
+        window.makeKeyAndVisible()
         self.window = window
-        self.window?.makeKeyAndVisible()
-        self.window?.tintColor = .accentColor
         
         return true
     }
     
     // MARK: - Private Implementation
+
+    func getRootViewController() -> (UIViewController) {
+        
+        if !UserDefaults.standard.welcomeSeen {
+            // WelcomeView
+            NotificationCenter.default.addObserver(self, selector:#selector(WelcomeViewPressContinue(notification:)),name:WelcomeView.NotifPressContinue,object: nil)
+            let presenter = WelcomeViewPresenter()
+
+            return WelcomeViewController(presenter: presenter)
+        } else {
+            // CounterListView
+            let presenter = CountersListViewPresenter()
+            let barController = CountersBarController()
+            let viewController = CountersListViewController(presenter: presenter, barController: barController)
+            navigationController.setViewControllers([viewController], animated: false)
+
+            return navigationController
+        }
+    }
     
     @objc func WelcomeViewPressContinue(notification: Notification) {
-        
+        UserDefaults.standard.welcomeSeen = true
         guard let windowApp = self.window, let root = windowApp.rootViewController else {
             return
         }
