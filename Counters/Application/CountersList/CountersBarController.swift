@@ -7,27 +7,17 @@
 import UIKit
 
 final class CountersBarController {
+    
+    // MARK: - Properties
+    
     private(set) var rightBarButtonItem: UIBarButtonItem?
     private(set) var leftBarButtonItem: UIBarButtonItem?
     private(set) var toolbarItems: [UIBarButtonItem]?
-    
-    // MARK: - ToolBar not editing
-    private(set) lazy var bottomBarTitleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .secondaryText
-        label.font = .systemFont(ofSize: 15, weight: .medium)
-        return label
-    }()
+
     private(set) lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
-    
-    // MARK: - ToolBar editing
     private(set) lazy var deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonPressed))
     private(set) lazy var shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
-    
-    // MARK: - NavigationBar not editing
     private(set) lazy var editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
-    
-    // MARK: - NavigationBar editing
     private(set) lazy var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
     private(set) lazy var selectAllButton =  UIBarButtonItem(
         title: "Select All",
@@ -35,6 +25,13 @@ final class CountersBarController {
         target: self,
         action: #selector(selectAllButtonPressed)
     )
+
+    private(set) lazy var bottomBarTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .secondaryText
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        return label
+    }()
     
     var addAction: (() -> Void)?
     var editAction: ((Bool) -> Void)?
@@ -42,12 +39,16 @@ final class CountersBarController {
     var selectAllAction: (() -> Void)?
     var shareAction: (() -> Void)?
     
+    // MARK: - Internal Methods
+    
     func setBarTitle(_ title: String?) {
         bottomBarTitleLabel.text = title
         bottomBarTitleLabel.sizeToFit()
     }
         
     @objc private func editButtonPressed() {
+        deleteButton.isEnabled = false
+        shareButton.isEnabled = false
         editAction?(true)
     }
     
@@ -72,10 +73,16 @@ final class CountersBarController {
     }
 }
 
+// MARK: - Implementation
+
 extension CountersBarController {
     func setupBars(_ editing: Bool) {
         setupNavigationBar(editing)
         setupToolBar(editing)
+    }
+    
+    func enableEditButton(_ enable: Bool) {
+        editButton.isEnabled = enable
     }
     
     private func setupNavigationBar(_ editing: Bool) {
@@ -101,5 +108,15 @@ private extension UIBarButtonItem {
     
     static func customView(_ view: UIView) -> UIBarButtonItem {
         UIBarButtonItem(customView: view)
+    }
+}
+
+
+// MARK: - Extension
+
+extension CountersBarController: CounterListViewDelegate {
+    func enableCellOptions(_ enable: Bool) {
+        deleteButton.isEnabled = enable
+        shareButton.isEnabled = enable
     }
 }

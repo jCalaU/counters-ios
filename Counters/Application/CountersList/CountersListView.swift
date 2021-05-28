@@ -6,6 +6,10 @@
 
 import UIKit
 
+protocol CounterListViewDelegate {
+    func enableCellOptions(_ enable: Bool)
+}
+
 internal final class CountersListView: UIView {
     // MARK: - View Model
 
@@ -32,6 +36,8 @@ internal final class CountersListView: UIView {
       let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
       return searchController.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
     }
+    
+    var delegate: CounterListViewDelegate?
     
     // MARK: - Initialization
     
@@ -65,13 +71,6 @@ private extension CountersListView {
         static let subtitle = UIFont.systemFont(ofSize: 17, weight: .regular)
         static let description = UIFont.systemFont(ofSize: 17, weight: .regular)
         static let button = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    }
-    
-    enum Shadow {
-        static let opacity: Float = 1
-        static let radius: CGFloat = 16
-        static let offset = CGSize(width: 0, height: 8)
-        static let color = UIColor(white: 0, alpha: 0.1).cgColor
     }
 }
 
@@ -198,6 +197,13 @@ extension CountersListView: UITableViewDataSource {
 extension CountersListView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let enable = (tableView.indexPathsForSelectedRows != nil) ? true : false
+        self.delegate?.enableCellOptions(enable)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let enable = (tableView.indexPathsForSelectedRows != nil) ? true : false
+        self.delegate?.enableCellOptions(enable)
     }
 }
 

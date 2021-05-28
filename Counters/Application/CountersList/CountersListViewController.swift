@@ -48,13 +48,14 @@ class CountersListViewController: UIViewController {
         // Get All Counters
         getAllCountersFromServer()
         
-        barController.addAction = presentCountersCreate
-        barController.deleteAction = askDeleteCounter
-        barController.selectAllAction = selectAllCounter
-        barController.shareAction = shareCounter
+        self.barController.addAction = presentCountersCreate
+        self.barController.deleteAction = askDeleteCounter
+        self.barController.selectAllAction = selectAllCounter
+        self.barController.shareAction = shareCounter
         
         setupLayout()
         innerView.configure(with: presenter.viewModel)
+        innerView.delegate = self.barController
     }
         
     private func shareCounter() {
@@ -152,7 +153,7 @@ private extension CountersListViewController {
         navigationController?.isToolbarHidden = false
         navigationController?.isNavigationBarHidden = false
         
-        barController.editAction = { [weak self] editing in
+        self.barController.editAction = { [weak self] editing in
             self?.innerView.tableView.setEditing(editing, animated: true)
             self?.navigationItem.searchController?.searchBar.isUserInteractionEnabled = !editing
             self?.setupBars()
@@ -161,13 +162,13 @@ private extension CountersListViewController {
     }
     
     func setupBars() {
-        barController.setupBars(innerView.tableView.isEditing)
+        self.barController.setupBars(innerView.tableView.isEditing)
         let bottomTitle = getBarBottomTitle()
-        barController.setBarTitle(bottomTitle)
+        self.barController.setBarTitle(bottomTitle)
 
-        toolbarItems = barController.toolbarItems
-        navigationItem.leftBarButtonItem = barController.leftBarButtonItem
-        navigationItem.rightBarButtonItem = barController.rightBarButtonItem
+        toolbarItems = self.barController.toolbarItems
+        navigationItem.leftBarButtonItem = self.barController.leftBarButtonItem
+        navigationItem.rightBarButtonItem = self.barController.rightBarButtonItem
     }
     
     func getBarBottomTitle() -> String {
@@ -315,6 +316,7 @@ extension CountersListViewController: CountersListState {
     func setLoadingState() {
         self.innerView.currentState = .loading
         self.innerView.activityIndicator.startAnimating()
+        self.barController.enableEditButton(false)
     }
     
     func setEmptyState() {
@@ -323,18 +325,30 @@ extension CountersListViewController: CountersListState {
     func setErrorState() {
         self.innerView.currentState = .error
         self.innerView.activityIndicator.stopAnimating()
+
+        self.barController.enableEditButton(false)
+
         self.innerView.countersdb = self.getCounterCellPresenter()
+        if self.innerView.countersdb.count != 0 {
+            self.innerView.currentState = .content
+            self.barController.enableEditButton(true)
+        }
+
         self.updateViewState()
     }
     
     func setContentState() {
         self.innerView.currentState = .content
         self.innerView.activityIndicator.stopAnimating()
-        self.innerView.countersdb = self.getCounterCellPresenter()
+        
+        self.barController.enableEditButton(true)
 
+        self.innerView.countersdb = self.getCounterCellPresenter()
         if self.innerView.countersdb.count == 0 {
             self.innerView.currentState = .empty
+            self.barController.enableEditButton(false)
         }
+
         self.updateViewState()
     }
 }
