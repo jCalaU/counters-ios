@@ -42,6 +42,8 @@
 "COUNTERSLIST_FAIL_DELETE_MESSAGE" = "Couldn't delete the counter \“%@\“";
 "COUNTERSLIST_FAIL_UPDATE_MESSAGE" = "Couldn't update the \“%@\“ counter to %d";
 
+"COUNTERLIST_NORESULTS_TITLE" = "No results";
+
 // MARK: - CountersCreate
 "COUNTERSCREATE_TITLE" = "Create a counter";
 "COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";

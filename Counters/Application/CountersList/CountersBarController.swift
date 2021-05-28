@@ -58,7 +58,6 @@ final class CountersBarController {
     
     @objc private func selectAllButtonPressed() {
         selectAllAction?()
-        enableCellOptions(true)
     }
     
     @objc private func addButtonPressed() {
@@ -109,15 +108,5 @@ private extension UIBarButtonItem {
     
     static func customView(_ view: UIView) -> UIBarButtonItem {
         UIBarButtonItem(customView: view)
-    }
-}
-
-
-// MARK: - Extension
-
-extension CountersBarController: CounterListViewDelegate {
-    func enableCellOptions(_ enable: Bool) {
-        deleteButton.isEnabled = enable
-        shareButton.isEnabled = enable
     }
 }

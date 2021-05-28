@@ -8,6 +8,7 @@ import UIKit
 
 protocol CountersListViewControllerPresenter {
     var viewModel: CountersListView.ViewModel { get }
+    var viewEmptyModel: CountersListEmptyView.ViewModel { get }
     func display(_ view: CounterAlertController)
 }
 
@@ -16,6 +17,8 @@ class CountersListViewController: UIViewController {
     // MARK: - Properties
 
     private lazy var innerView = CountersListView()
+
+    private lazy var innerEmptyView = CountersListEmptyView()
     
     private let presenter: CountersListViewControllerPresenter
     
@@ -57,7 +60,9 @@ class CountersListViewController: UIViewController {
         
         setupLayout()
         innerView.configure(with: presenter.viewModel)
-        innerView.delegate = self.barController
+        innerView.delegate = self
+        
+        innerEmptyView.configure(with: presenter.viewEmptyModel)
         
         refreshControl.addTarget(self, action: #selector(refreshCountersData(_:)), for: .valueChanged)
         innerView.tableView.addSubview(refreshControl)
@@ -92,6 +97,7 @@ class CountersListViewController: UIViewController {
         for row in 0..<totalRows {
             innerView.tableView.selectRow(at: NSIndexPath(row: row, section: 0) as IndexPath, animated: false, scrollPosition:UITableView.ScrollPosition.none)
         }
+        enableCellOptions(true)
     }
     
     private func presentCountersCreate() {
@@ -331,12 +337,32 @@ extension CountersListViewController: CountersListState {
         self.innerView.currentState = .loading
         self.innerView.activityIndicator.startAnimating()
         self.barController.enableEditButton(false)
+        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
     }
     
     func setEmptyState() {
+        
+        self.innerEmptyView.updateTexts("COUNTERLIST_EMPTY_TITLE".localized,
+                                        "COUNTERLIST_EMPTY_SUBTITLE".localized,
+                                        "COUNTERLIST_EMPTY_BUTTON".localized,
+                                        self.presentCountersCreate)
+        self.innerView.tableView.backgroundView = self.innerEmptyView
+        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
+        
+        self.innerView.currentState = .empty
+        self.barController.enableEditButton(false)
     }
     
     func setErrorState() {
+        
+        self.innerEmptyView.updateTexts("COUNTERLIST_ERROR_TITLE".localized,
+                                        "COUNTERLIST_ERROR_SUBTITLE".localized,
+                                        "COUNTERLIST_ERROR_BUTTON".localized,
+                                        self.getAllCountersFromServer)
+        self.innerView.tableView.backgroundView = self.innerEmptyView
+        
+        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
+        
         self.innerView.currentState = .error
         self.innerView.activityIndicator.stopAnimating()
 
@@ -344,6 +370,7 @@ extension CountersListViewController: CountersListState {
 
         self.innerView.countersdb = self.getCounterCellPresenter()
         if self.innerView.countersdb.count != 0 {
+            self.innerView.tableView.backgroundView = nil
             self.innerView.currentState = .content
             self.barController.enableEditButton(true)
         }
@@ -355,14 +382,34 @@ extension CountersListViewController: CountersListState {
         self.innerView.currentState = .content
         self.innerView.activityIndicator.stopAnimating()
         
+        self.innerView.tableView.backgroundView = nil
+        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
         self.barController.enableEditButton(true)
 
         self.innerView.countersdb = self.getCounterCellPresenter()
         if self.innerView.countersdb.count == 0 {
-            self.innerView.currentState = .empty
-            self.barController.enableEditButton(false)
+            self.setEmptyState()
         }
 
         self.updateViewState()
+    }
+}
+
+// MARK: - Extension
+
+extension CountersListViewController: CounterListViewDelegate {
+    func enableCellOptions(_ enable: Bool) {
+        self.barController.deleteButton.isEnabled = enable
+        self.barController.shareButton.isEnabled = enable
+    }
+    
+    func setFilteringState(_ enable: Bool) {
+        self.innerEmptyView.updateTexts("".localized,
+                                        "COUNTERLIST_NORESULTS_TITLE".localized,
+                                        "".localized,
+                                        self.presentCountersCreate)
+
+        self.innerEmptyView.hideButton(enable)
+        self.innerView.tableView.backgroundView = enable ? self.innerEmptyView : nil
     }
 }

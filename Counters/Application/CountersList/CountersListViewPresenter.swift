@@ -48,6 +48,13 @@ extension CountersListViewPresenter: CountersListViewControllerPresenter {
                      description: "WELCOME_DESCRIPTION".localized)
     }
     
+    var viewEmptyModel: CountersListEmptyView.ViewModel  {
+                
+        return .init(title: "COUNTERLIST_EMPTY_TITLE".localized,
+                     description: "COUNTERLIST_EMPTY_SUBTITLE".localized,
+                     buttonTitle: "COUNTERLIST_EMPTY_BUTTON".localized)
+    }
+    
     func display(_ view: CounterAlertController) {
         
         guard let viewController = view.viewController else { return }

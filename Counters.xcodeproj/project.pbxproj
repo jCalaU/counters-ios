@@ -21,8 +21,8 @@
 		3B1C91BE2658A89A00B3090F /* CounterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91BD2658A89A00B3090F /* CounterTableViewCell.swift */; };
 		3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */; };
 		3B22EB2C26615DDD00A14FA2 /* UserDefaults+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */; };
+		3B22EB312661715F00A14FA2 /* CountersListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB302661715F00A14FA2 /* CountersListEmptyView.swift */; };
 		3B2431CB265DFCF50052C13F /* CounterCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */; };
-		3B3EB977265C0239002149A1 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */; };
 		3B3EB980265C27C7002149A1 /* CNCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB97F265C27C7002149A1 /* CNCoreData.swift */; };
 		3B3EB989265C2821002149A1 /* CountersDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB987265C2821002149A1 /* CountersDB.xcdatamodeld */; };
 		3B3EB98F265C28E0002149A1 /* CNCounters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB98D265C28E0002149A1 /* CNCounters.swift */; };
@@ -83,9 +83,8 @@
 		3B1C91BD2658A89A00B3090F /* CounterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTableViewCell.swift; sourceTree = "<group>"; };
 		3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
 		3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Config.swift"; sourceTree = "<group>"; };
+		3B22EB302661715F00A14FA2 /* CountersListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersListEmptyView.swift; sourceTree = "<group>"; };
 		3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCellPresenter.swift; sourceTree = "<group>"; };
-		3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
-		3B3EB976265C0239002149A1 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		3B3EB97F265C27C7002149A1 /* CNCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNCoreData.swift; sourceTree = "<group>"; };
 		3B3EB988265C2821002149A1 /* CountersDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CountersDB.xcdatamodel; sourceTree = "<group>"; };
 		3B3EB98D265C28E0002149A1 /* CNCounters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNCounters.swift; sourceTree = "<group>"; };
@@ -186,11 +185,12 @@
 		3B1C916126580D4D00B3090F /* CountersList */ = {
 			isa = PBXGroup;
 			children = (
+				3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */,
 				3B1C916426580D4D00B3090F /* CountersListViewPresenter.swift */,
 				3B1C916226580D4D00B3090F /* CountersListViewController.swift */,
-				3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */,
-				3B1C919D2658451500B3090F /* CountersBarController.swift */,
 				3B1C916326580D4D00B3090F /* CountersListView.swift */,
+				3B22EB302661715F00A14FA2 /* CountersListEmptyView.swift */,
+				3B1C919D2658451500B3090F /* CountersBarController.swift */,
 			);
 			path = CountersList;
 			sourceTree = "<group>";
@@ -198,19 +198,9 @@
 		3B1C91B72658A31100B3090F /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				3B3EB974265C0239002149A1 /* DZNEmptyDataSet */,
 				3B1C91B82658A32E00B3090F /* Constants.swift */,
 			);
 			path = Commons;
-			sourceTree = "<group>";
-		};
-		3B3EB974265C0239002149A1 /* DZNEmptyDataSet */ = {
-			isa = PBXGroup;
-			children = (
-				3B3EB976265C0239002149A1 /* UIScrollView+EmptyDataSet.h */,
-				3B3EB975265C0239002149A1 /* UIScrollView+EmptyDataSet.m */,
-			);
-			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
 		3B3EB97E265C2767002149A1 /* CoreData */ = {
@@ -508,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B22EB2C26615DDD00A14FA2 /* UserDefaults+Config.swift in Sources */,
+				3B22EB312661715F00A14FA2 /* CountersListEmptyView.swift in Sources */,
 				3B706B752660259300ECD201 /* CountersExampleData.swift in Sources */,
 				3B1C91BE2658A89A00B3090F /* CounterTableViewCell.swift in Sources */,
 				3B1C916726580D4D00B3090F /* CountersListViewController.swift in Sources */,
@@ -524,7 +515,6 @@
 				3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				3BABF42C265A962200BE27AA /* CountersCreateView.swift in Sources */,
-				3B3EB977265C0239002149A1 /* UIScrollView+EmptyDataSet.m in Sources */,
 				3B706B66266006D700ECD201 /* TagTableViewCell.swift in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
