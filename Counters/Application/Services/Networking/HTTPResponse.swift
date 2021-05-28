@@ -17,7 +17,7 @@ class HTTPResponse {
     // MARK: - Functions
 
     // Check Response from Server
-    class func checkResponse(_ requestType:RequestType, onCompletion:@escaping (_ isSuccess: Bool, _ countersArray:[CNApiCounters]) -> Void) -> (Data?, URLResponse?, Error?) -> Void {
+    class func checkResponse(_ requestType:RequestType, onCompletion:@escaping (_ isSuccess: Bool, _ countersArray:[CNApiCounters], _ error: Error?) -> Void) -> (Data?, URLResponse?, Error?) -> Void {
 
         let completionResponse: (Data?, URLResponse?, Error?) -> Void = ({(data, response, error) in
 
@@ -41,21 +41,13 @@ class HTTPResponse {
     }
 
     // Check Request Type
-    class func callResponseWith(_ requestType:RequestType, isResponseSuccess:Bool, withData data:Data?, withError error:Error?, statusCode code:Int?, onCompletion:(_ isSuccess:Bool, _ countersArray:[CNApiCounters]) -> Void) {
+    class func callResponseWith(_ requestType:RequestType, isResponseSuccess:Bool, withData data:Data?, withError error:Error?, statusCode code:Int?, onCompletion:(_ isSuccess:Bool, _ countersArray:[CNApiCounters], _ error: Error?) -> Void) {
         
         guard isResponseSuccess else {
-            guard error == nil else {
-                //let alertMessage = error?.localizedDescription
-                //displayErrorAlert(alertMessage!.localized, titleMessage:"User couldn't be created".localized)
-                onCompletion(isResponseSuccess, [CNApiCounters]())
-                return
-            }
-            //let alertMessage = "Error".localized
-            //displayErrorAlert(alertMessage.localized, titleMessage:"User couldn't be created".localized)
-            onCompletion(isResponseSuccess, [CNApiCounters]())
+            onCompletion(isResponseSuccess, [CNApiCounters](), error)
             return
         }
-                
+        // Is success
         do {
             guard let dataResponse = data else {
                 return
@@ -63,14 +55,13 @@ class HTTPResponse {
             let decoder = JSONDecoder()
             let jsonArray = try decoder.decode([CNApiCounters].self, from: dataResponse)
             CNCoreData.sharedInstance.setCNCounters(jsonArray)
-            onCompletion(isResponseSuccess, jsonArray)
+            onCompletion(isResponseSuccess, jsonArray, error)
             return
             
         } catch let error {
             Logger("json counter error: \(error.localizedDescription)")
         }
 
-        onCompletion(isResponseSuccess, [CNApiCounters]())
+        onCompletion(isResponseSuccess, [CNApiCounters](), error)
     }
 }
-

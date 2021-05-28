@@ -27,7 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let presenter = WelcomeViewPresenter()
         window.rootViewController = WelcomeViewController(presenter: presenter)
         self.window = window
-        window.makeKeyAndVisible()
+        self.window?.makeKeyAndVisible()
+        self.window?.tintColor = .accentColor
+        
         return true
     }
     

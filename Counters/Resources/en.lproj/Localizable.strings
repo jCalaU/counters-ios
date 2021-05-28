@@ -38,11 +38,17 @@
 "COUNTERLIST_BOTTOM_TITLE_ITEM" = "%d item · Counted %d times";
 "COUNTERLIST_BOTTOM_TITLE_ITEMS" = "%d items · Counted %d times";
 
+"COUNTERSLIST_FAIL_RELOAD_MESSAGE" = "Couldn't load the counter";
+"COUNTERSLIST_FAIL_DELETE_MESSAGE" = "Couldn't delete the counter \“%@\“";
+"COUNTERSLIST_FAIL_UPDATE_MESSAGE" = "Couldn't update the \“%@\“ counter to %d";
+
 // MARK: - CountersCreate
 "COUNTERSCREATE_TITLE" = "Create a counter";
 "COUNTERSCREATE_PLACEHOLDER_TXT" = "Cups of coffee";
 "COUNTERSCREATE_DESCRIPTION" = "Give it a name: Creative block? See examples.";
 "COUNTERSCREATE_EXAMPLES" = "examples";
+
+"COUNTERSCREATE_FAIL_MESSAGE" = "Couldn't create the counter";
 
 // MARK: - CountersExample
 "COUNTERSEXAMPLE_TITLE" = "Examples";
@@ -65,3 +71,7 @@
 "COUNTERSEXAMPLE_MISC_1" = "Times sneezed";
 "COUNTERSEXAMPLE_MISC_2" = "Naps";
 "COUNTERSEXAMPLE_MISC_3" = "Blinks";
+
+// MARK: - CounterAlertController
+"COUNTERALERTCONTROLLER_RETRY" = "Retry";
+"COUNTERALERTCONTROLLER_DISMISS" = "Dismiss";

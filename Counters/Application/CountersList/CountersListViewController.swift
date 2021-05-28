@@ -8,6 +8,7 @@ import UIKit
 
 protocol CountersListViewControllerPresenter {
     var viewModel: CountersListView.ViewModel { get }
+    func display(_ view: CounterAlertController)
 }
 
 class CountersListViewController: UIViewController {
@@ -41,6 +42,8 @@ class CountersListViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "APP_NAME".localized
+
+        self.setLoadingState()
         
         // Get All Counters
         getAllCountersFromServer()
@@ -116,18 +119,16 @@ class CountersListViewController: UIViewController {
             guard let idCounter = cell.counterId else { return }
             let params:[String: Any] = ["id" : idCounter]
                     
-            let completion = HTTPResponse.checkResponse(.delCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters]) in
+            let completion = HTTPResponse.checkResponse(.delCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters], error: Error?) in
 
                 DispatchQueue.main.async {
                     guard isSuccess else {
-                        // show message error
-                    return
+                        let title = String(format: "COUNTERSLIST_FAIL_DELETE_MESSAGE".localized, cell.titleLabel.text!)
+                        self.showErrorMessageSimple(title, error, self)
+                        return
                     }
                     
-                    self.innerView.countersdb = self.getCounterCellPresenter()
-                    self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
-                    self.barController.setBarTitle(self.getBarBottomTitle())
-                    self.innerView.tableView.reloadData()
+                    self.setContentState()
                 }
             })
 
@@ -195,19 +196,38 @@ private extension CountersListViewController {
 extension CountersListViewController : CounterCellPresenterDelegate {
     
     func reloadTableView() {
-        self.innerView.countersdb = self.getCounterCellPresenter()
-        self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
-        if self.innerView.isFiltering {
-            self.innerView.filterContentForSearchText(self.innerView.searchController.searchBar.text!)
+        self.setContentState()
+    }
+    
+    func showErrorMessage(_ title:String, _ error:Error?, _ retryAction: @escaping (() -> Void)) {
+        var alertMessage = "Error".localized
+        if let err = error {
+            alertMessage = err.localizedDescription
         }
-        self.barController.setBarTitle(getBarBottomTitle())
-        self.innerView.tableView.reloadData()
+        
+        let retryTitle = "COUNTERALERTCONTROLLER_RETRY".localized
+        let dismissTitle = "COUNTERALERTCONTROLLER_DISMISS".localized
+        self.presenter.display(.error(
+                            title: title,
+                            message: alertMessage,
+                            actionTitles: [retryTitle, dismissTitle],
+                            actions: [retryAction],
+                            viewController: self
+        ))
     }
 }
 
     // MARK: - Extension Network
 private extension CountersListViewController {
-
+    
+    func updateViewState() {
+        if self.innerView.isFiltering {
+            self.innerView.filterContentForSearchText(self.innerView.searchController.searchBar.text!)
+        }
+        self.barController.setBarTitle(self.getBarBottomTitle())
+        self.innerView.tableView.reloadData()
+    }
+    
     func getCounterCellPresenter() -> [CounterCellPresenter] {
     
         var counterCellArray = [CounterCellPresenter]()
@@ -223,19 +243,14 @@ private extension CountersListViewController {
     
     func getAllCountersFromServer() {
         
-        let completion = HTTPResponse.checkResponse(.getAllCounters, onCompletion: {(isSuccess: Bool, countersArray: [CNApiCounters]) in
-            self.innerView.activityIndicator.stopAnimating()
+        let completion = HTTPResponse.checkResponse(.getAllCounters, onCompletion: {(isSuccess: Bool, countersArray: [CNApiCounters], error: Error?) in
             guard isSuccess else {
-                self.innerView.currentState = .error
-                self.barController.setBarTitle(self.getBarBottomTitle())
-                self.innerView.tableView.reloadData()
+                self.showErrorMessageSimple("COUNTERSLIST_FAIL_RELOAD_MESSAGE".localized, error, self)
+                self.setErrorState()
                 return
             }
 
-            self.innerView.countersdb = self.getCounterCellPresenter()
-            self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
-            self.barController.setBarTitle(self.getBarBottomTitle())
-            self.innerView.tableView.reloadData()
+            self.setContentState()
         })
 
         HTTPClient.sharedInstance.userRequestToServer(nil,
@@ -257,20 +272,16 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
         
         viewController.innerView.activityIndicator.startAnimating()
         
-        let completion = HTTPResponse.checkResponse(.addCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters]) in
-
+        // Start request
+        let completion = HTTPResponse.checkResponse(.addCounter, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters], error: Error?) in
             viewController.innerView.activityIndicator.stopAnimating()
-
+            
             guard isSuccess else {
-                // show message error
-            return
+                self.showErrorMessageSimple("COUNTERSCREATE_FAIL_MESSAGE".localized, error, viewController)
+                return
             }
 
-            self.innerView.countersdb = self.getCounterCellPresenter()
-            self.innerView.currentState = (self.innerView.countersdb.count != 0) ? .content : .empty
-            self.barController.setBarTitle(self.getBarBottomTitle())
-            self.innerView.tableView.reloadData()
-            
+            self.setContentState()
             viewController.dismiss(animated: true)
         })
         
@@ -278,5 +289,52 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
                                                       httpMethod: Method.POST.rawValue,
                                                       endPoint: addCounterEndpoint,
                                                       onCompletion:completion)
+    }
+    
+    func showErrorMessageSimple(_ title: String, _ error:Error?, _ viewController: UIViewController) {
+        var alertMessage = "Error".localized
+        if let err = error {
+            alertMessage = err.localizedDescription
+        }
+        
+        let dismissTitle = "COUNTERALERTCONTROLLER_DISMISS".localized
+        self.presenter.display(.error(
+                            title: title,
+                            message: alertMessage,
+                            actionTitles: [dismissTitle],
+                            actions: [],
+                            viewController: viewController
+        ))
+    }
+}
+
+
+
+extension CountersListViewController: CountersListState {
+    
+    func setLoadingState() {
+        self.innerView.currentState = .loading
+        self.innerView.activityIndicator.startAnimating()
+    }
+    
+    func setEmptyState() {
+    }
+    
+    func setErrorState() {
+        self.innerView.currentState = .error
+        self.innerView.activityIndicator.stopAnimating()
+        self.innerView.countersdb = self.getCounterCellPresenter()
+        self.updateViewState()
+    }
+    
+    func setContentState() {
+        self.innerView.currentState = .content
+        self.innerView.activityIndicator.stopAnimating()
+        self.innerView.countersdb = self.getCounterCellPresenter()
+
+        if self.innerView.countersdb.count == 0 {
+            self.innerView.currentState = .empty
+        }
+        self.updateViewState()
     }
 }

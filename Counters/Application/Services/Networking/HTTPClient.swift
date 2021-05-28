@@ -15,7 +15,7 @@ class HTTPClient : NSObject, URLSessionDataDelegate, URLSessionTaskDelegate {
     static let sharedInstance = HTTPClient()
     
     // TimeoutInterval for URLRequest
-    let timeoutIntervalRequest: Double = 30.0
+    let timeoutIntervalRequest: Double = 10.0
             
     // Array for receive data : (session : Data)
     var requestData              = [URLSession : Data]()

@@ -6,10 +6,6 @@
 
 import UIKit
 
-enum ViewState : String {
-    case loading, empty, error, content
-}
-
 internal final class CountersListView: UIView {
     // MARK: - View Model
 
@@ -281,10 +277,7 @@ extension CountersListView: DZNEmptyDataSetSource {
 extension CountersListView: DZNEmptyDataSetDelegate {
     
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        if self.currentState == .loading {
-            self.activityIndicator.startAnimating()
-            return false
-        } else if isFiltering {
+        if (self.currentState == .loading) || (isFiltering) {
             return false
         }
         return true
