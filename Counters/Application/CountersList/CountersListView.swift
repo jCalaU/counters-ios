@@ -20,7 +20,6 @@ internal final class CountersListView: UIView {
     
     // MARK: - Properties
     
-    private let refreshControl = UIRefreshControl()
     var tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     var currentState : ViewState = .loading
@@ -90,9 +89,6 @@ private extension CountersListView {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.refreshControl = refreshControl
-
-        refreshControl.addTarget(self, action: #selector(refreshCountersData(_:)), for: .valueChanged)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.allowsSelection = false
@@ -122,8 +118,7 @@ private extension CountersListView {
     
     func setupViewHierarchy() {
         addSubview(tableView)
-        tableView.tableHeaderView = searchController.searchBar
-        tableView.addSubview(searchController.searchBar)
+        //tableView.tableHeaderView = searchController.searchBar
         addSubview(activityIndicator)
     }
     
@@ -154,10 +149,6 @@ extension CountersListView {
         })
 
         tableView.reloadData()
-    }
-    
-    @objc private func refreshCountersData(_ sender: Any) {
-        print("here")
     }
 }
 

@@ -58,6 +58,7 @@ final class CountersBarController {
     
     @objc private func selectAllButtonPressed() {
         selectAllAction?()
+        enableCellOptions(true)
     }
     
     @objc private func addButtonPressed() {

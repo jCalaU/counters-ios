@@ -21,6 +21,8 @@ class CountersListViewController: UIViewController {
     
     private let barController : CountersBarController
 
+    private let refreshControl = UIRefreshControl()
+
     // MARK: - Initialization
 
     init(presenter: CountersListViewControllerPresenter, barController: CountersBarController) {
@@ -56,8 +58,18 @@ class CountersListViewController: UIViewController {
         setupLayout()
         innerView.configure(with: presenter.viewModel)
         innerView.delegate = self.barController
+        
+        refreshControl.addTarget(self, action: #selector(refreshCountersData(_:)), for: .valueChanged)
+        innerView.tableView.addSubview(refreshControl)
+        
+        navigationItem.searchController = innerView.searchController
     }
         
+    @objc private func refreshCountersData(_ sender: Any) {
+        getAllCountersFromServer()
+    }
+
+    
     private func shareCounter() {
         
         guard let indexPaths = innerView.tableView.indexPathsForSelectedRows else { return }
@@ -169,6 +181,7 @@ private extension CountersListViewController {
         toolbarItems = self.barController.toolbarItems
         navigationItem.leftBarButtonItem = self.barController.leftBarButtonItem
         navigationItem.rightBarButtonItem = self.barController.rightBarButtonItem
+        navigationController?.navigationBar.backgroundColor = .systemBackground
     }
     
     func getBarBottomTitle() -> String {
@@ -245,6 +258,7 @@ private extension CountersListViewController {
     func getAllCountersFromServer() {
         
         let completion = HTTPResponse.checkResponse(.getAllCounters, onCompletion: {(isSuccess: Bool, countersArray: [CNApiCounters], error: Error?) in
+            self.refreshControl.endRefreshing()
             guard isSuccess else {
                 self.showErrorMessageSimple("COUNTERSLIST_FAIL_RELOAD_MESSAGE".localized, error, self)
                 self.setErrorState()
