@@ -37,19 +37,19 @@ final class CounterCellPresenter {
             "id" : counterId]
         
         let completion = HTTPResponse.checkResponse(requestType, onCompletion:{( isSuccess:Bool, countersArray:[CNApiCounters], error: Error?) in
-            
+
+            self.delegate?.reloadTableView()
+
             guard isSuccess else {
                 // Error
                 guard let text = self.countersdb.title else { return }
-                let nextCount = self.countersdb.count + 1
+                let nextCount = (requestType == .incCounter) ? (self.countersdb.count + 1) : (self.countersdb.count - 1)
                 let title = String(format: "COUNTERSLIST_FAIL_UPDATE_MESSAGE".localized, text, nextCount)
                 let retryAction = (requestType == .incCounter) ? self.requestCounterIncrease : self.requestCounterDecrease
                 self.delegate?.showErrorMessage(title, error, retryAction)
 
                 return
             }
-            // Success
-            self.delegate?.reloadTableView()
         })
 
         HTTPClient.sharedInstance.userRequestToServer(params,

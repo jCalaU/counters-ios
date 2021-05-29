@@ -42,8 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // CounterListView
             let presenter = CountersListViewPresenter()
-            let barController = CountersBarController()
-            let viewController = CountersListViewController(presenter: presenter, barController: barController)
+            let barPresenter = CountersBarPresenter()
+            let viewController = CountersListViewController(presenter: presenter, barPresenter: barPresenter)
             navigationController.setViewControllers([viewController], animated: false)
 
             return navigationController
@@ -57,8 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let presenter = CountersListViewPresenter()
-        let barController = CountersBarController()
-        let viewController = CountersListViewController(presenter: presenter, barController: barController)
+        let barPresenter = CountersBarPresenter()
+        let viewController = CountersListViewController(presenter: presenter, barPresenter: barPresenter)
         navigationController.setViewControllers([viewController], animated: false)
         
         root.dismiss(animated: false) {

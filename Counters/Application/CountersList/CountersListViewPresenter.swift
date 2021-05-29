@@ -17,24 +17,6 @@ protocol CountersListState {
     func setContentState()
 }
 
-struct CounterAlertController {
-    let title: String?
-    let message: String?
-    let actionTitles: [String]
-    let actions: [() -> Void]
-    let viewController: UIViewController?
-        
-    static func error(
-        title: String? = nil,
-        message: String,
-        actionTitles: [String] = [],
-        actions: [() -> Void] = [],
-        viewController: UIViewController? = nil
-    ) -> CounterAlertController {
-        return CounterAlertController(title: title, message: message, actionTitles: actionTitles, actions: actions, viewController: viewController)
-    }
-}
-
 internal final class CountersListViewPresenter {
 }
 
@@ -55,7 +37,7 @@ extension CountersListViewPresenter: CountersListViewControllerPresenter {
                      buttonTitle: "COUNTERLIST_EMPTY_BUTTON".localized)
     }
     
-    func display(_ view: CounterAlertController) {
+    func display(_ view: CounterAlertPresenter) {
         
         guard let viewController = view.viewController else { return }
         
