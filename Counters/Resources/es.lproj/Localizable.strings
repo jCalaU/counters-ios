@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Counters
+*/
+
+// MARK: - App Name
+"APP_NAME" = "Cuentalo";
+
+// MARK: - Welcome
+"WELCOME_TITLE" = "Bienvenido a Cuentalo";
+"WELCOME_DESCRIPTION" = "Una aplicación de ejemplo que se sincroniza con un servidor Node.js que se ejecuta en tu Mac, la wea bkn.";
+
+"WELCOME_ADD_FEATURE_TITLE" = "Agrega casi cualquier cosa";
+"WELCOME_ADD_FEATURE_DESCRIPTION" = "Captura tazas de café con leche, frappuccinos o cualquier otra cosa que se pueda contar.";
+
+"WELCOME_COUNT_SHARE_FEATURE_TITLE" = "Cuenta solo o con cualquiera";
+"WELCOME_COUNT_SHARE_FEATURE_DESCRIPTION" = "Otros pueden ver o realizar cambios. No hay API de autenticación.";
+
+"WELCOME_COUNT_FEATURE_TITLE" = "Cuenta tus pensamientos";
+"WELCOME_COUNT_FEATURE_DESCRIPTION" = "Las posibilidades son literalmente infinitas.";
+
+"WELCOME_PRIMARY_ACTION_TITLE" = "Continuar";
+
+// MARK: - CountersList
+"COUNTERSLIST_SEARCH" = "Buscar";
+
+"COUNTERLIST_EMPTY_TITLE" = "Aún no hay contadores";
+"COUNTERLIST_EMPTY_SUBTITLE" = "\“Cuando comencé a contar mis bendiciones, toda mi vida cambió.\“ \n —Willie Nelson";
+"COUNTERLIST_EMPTY_BUTTON" = "Crear un contador";
+
+"COUNTERLIST_ERROR_TITLE" = "No se pudieron cargar los contadores";
+"COUNTERLIST_ERROR_SUBTITLE" = "La conexión a Internet parece estar desconectada.";
+"COUNTERLIST_ERROR_BUTTON" = "Reintentar";
+
+"COUNTERLIST_ALERT_DELETE_COUNTER" = "Eliminar %d contador";
+"COUNTERLIST_ALERT_DELETE_COUNTERS" = "Eliminar %d contadores";
+
+"COUNTERLIST_BOTTOM_TITLE_ITEM" = "%d wea · Contada %d vez";
+"COUNTERLIST_BOTTOM_TITLE_ITEMS" = "%d weas · Contadas %d veces";
+
+"COUNTERSLIST_FAIL_RELOAD_MESSAGE" = "No se pudo cargar el contador";
+"COUNTERSLIST_FAIL_DELETE_MESSAGE" = "No se pudo borrar el contador \“%@\“";
+"COUNTERSLIST_FAIL_UPDATE_MESSAGE" = "No se pudo actualizar el contador \“%@\“ a %d";
+
+"COUNTERLIST_NORESULTS_TITLE" = "Ni una wea";
+
+// MARK: - CountersCreate
+"COUNTERSCREATE_TITLE" = "Crear un contador";
+"COUNTERSCREATE_PLACEHOLDER_TXT" = "Tazas de café";
+"COUNTERSCREATE_DESCRIPTION" = "Escribe un nombre: ¿Inspiración? Ver ejemplos.";
+"COUNTERSCREATE_EXAMPLES" = "ejemplos";
+
+"COUNTERSCREATE_FAIL_MESSAGE" = "No se pudo crear el contador";
+
+// MARK: - CountersExample
+"COUNTERSEXAMPLE_TITLE" = "Ejemplos";
+"COUNTERSEXAMPLE_SUBTITLE" = "Seleccione un ejemplo para agregarlo a sus contadores.";
+
+"COUNTERSEXAMPLE_DRINKS" = "BEBIDAS";
+"COUNTERSEXAMPLE_DRINKS_1" = "Tazas con café";
+"COUNTERSEXAMPLE_DRINKS_2" = "Vasos con agua";
+"COUNTERSEXAMPLE_DRINKS_3" = "Chocolate caliente";
+"COUNTERSEXAMPLE_DRINKS_4" = "Leche";
+"COUNTERSEXAMPLE_DRINKS_5" = "Cerveza";
+
+"COUNTERSEXAMPLE_FOOD" = "COMIDA";
+"COUNTERSEXAMPLE_FOOD_1" = "Completos";
+"COUNTERSEXAMPLE_FOOD_2" = "Ceviches";
+"COUNTERSEXAMPLE_FOOD_3" = "Frutas";
+"COUNTERSEXAMPLE_FOOD_4" = "Nueces";
+
+"COUNTERSEXAMPLE_MISC" = "MISC";
+"COUNTERSEXAMPLE_MISC_1" = "Estornudos";
+"COUNTERSEXAMPLE_MISC_2" = "Siestas";
+"COUNTERSEXAMPLE_MISC_3" = "Parpadeos";
+
+// MARK: - CountersAlertPresenter
+"COUNTERSALERTPRESENTER_RETRY" = "Reintentar";
+"COUNTERSALERTPRESENTER_DISMISS" = "Descartar";

@@ -13,9 +13,10 @@ struct TagsExampleJSON: Codable {
 extension TagsExampleJSON {
   static func tagsExampleJSON() -> [TagsExampleJSON] {
     guard
-      let url = Bundle.main.url(forResource: "tagsExample", withExtension: "json"),
-      let data = try? Data(contentsOf: url)
-      else {
+        let fileName = returnFileName(),
+        let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+        let data = try? Data(contentsOf: url)
+    else {
         return []
     }
     
@@ -26,4 +27,12 @@ extension TagsExampleJSON {
       return []
     }
   }
+    static func returnFileName() -> String? {
+        let languageSupported = ["en", "es", "fr", "pt", "sv"]
+        let language:String = Locale.preferredLanguages[0] as String
+        let languageES  = (language as NSString).substring(to: 2)
+        let lang = languageSupported.contains(languageES) ? languageES : "en"
+        let fileName = "tagsExample_" + lang
+        return fileName
+    }
 }

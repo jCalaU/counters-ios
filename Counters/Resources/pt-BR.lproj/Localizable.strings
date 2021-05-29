@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Counters
+*/
+
+// MARK: - App Name
+"APP_NAME" = "Contadores";
+
+// MARK: - Welcome
+"WELCOME_TITLE" = "Bem-vindo aos contadores";
+"WELCOME_DESCRIPTION" = "Um exemplo de aplicativo que sincroniza com um servidor Node.js em execução no seu Mac.";
+
+"WELCOME_ADD_FEATURE_TITLE" = "Adicione quase tudo";
+"WELCOME_ADD_FEATURE_DESCRIPTION" = "Capture xícaras de café com leite, frapuccinos ou qualquer coisa que possa ser contada.";
+
+"WELCOME_COUNT_SHARE_FEATURE_TITLE" = "Contar sozinho ou com qualquer pessoa";
+"WELCOME_COUNT_SHARE_FEATURE_DESCRIPTION" = "Outros podem visualizar ou fazer alterações. Não há API de autenticação.";
+
+"WELCOME_COUNT_FEATURE_TITLE" = "Conte seus pensamentos";
+"WELCOME_COUNT_FEATURE_DESCRIPTION" = "As possibilidades são literalmente infinitas.";
+
+"WELCOME_PRIMARY_ACTION_TITLE" = "Continuar";
+
+// MARK: - CountersList
+"COUNTERSLIST_SEARCH" = "Pesquisar";
+
+"COUNTERLIST_EMPTY_TITLE" = "Ainda não há contadores";
+"COUNTERLIST_EMPTY_SUBTITLE" = "\“ Quando comecei a contar minhas bênçãos, toda minha vida mudou. \ “\ N —Willie Nelson";
+"COUNTERLIST_EMPTY_BUTTON" = "Criar um contador";
+
+"COUNTERLIST_ERROR_TITLE" = "Não foi possível carregar os contadores";
+"COUNTERLIST_ERROR_SUBTITLE" = "A conexão com a Internet parece estar offline.";
+"COUNTERLIST_ERROR_BUTTON" = "Tentar novamente";
+
+"COUNTERLIST_ALERT_DELETE_COUNTER" = "Excluir %d contador";
+"COUNTERLIST_ALERT_DELETE_COUNTERS" = "Excluir %d contadores";
+
+"COUNTERLIST_BOTTOM_TITLE_ITEM" = "%d item · Contado %d vezes";
+"COUNTERLIST_BOTTOM_TITLE_ITEMS" = "%d items · Contados %d vezes";
+
+"COUNTERSLIST_FAIL_RELOAD_MESSAGE" = "Não foi possível carregar o contador";
+"COUNTERSLIST_FAIL_DELETE_MESSAGE" = "Não foi possível excluir o contador \“%@\“";
+"COUNTERSLIST_FAIL_UPDATE_MESSAGE" = "Não foi possível atualizar o contador \“%@\“ para %d";
+
+"COUNTERLIST_NORESULTS_TITLE" = "Sem resultados";
+
+// MARK: - CountersCreate
+"COUNTERSCREATE_TITLE" = "Criar um contador";
+"COUNTERSCREATE_PLACEHOLDER_TXT" = "Chávenas de café";
+"COUNTERSCREATE_DESCRIPTION" = "Dê um nome: Bloco criativo? Veja os exemplos.";
+"COUNTERSCREATE_EXAMPLES" = "exemplos";
+
+"COUNTERSCREATE_FAIL_MESSAGE" = "Não foi possível criar o contador";
+
+// MARK: - CountersExample
+"COUNTERSEXAMPLE_TITLE" = "Exemplos";
+"COUNTERSEXAMPLE_SUBTITLE" = "Selecione um exemplo para adicioná-lo aos seus contadores.";
+
+"COUNTERSEXAMPLE_DRINKS" = "DRINKS";
+"COUNTERSEXAMPLE_DRINKS_1" = "Cups of coffee";
+"COUNTERSEXAMPLE_DRINKS_2" = "Glasses of water";
+"COUNTERSEXAMPLE_DRINKS_3" = "Hot chocolate";
+"COUNTERSEXAMPLE_DRINKS_4" = "Milk";
+"COUNTERSEXAMPLE_DRINKS_5" = "Beer";
+
+"COUNTERSEXAMPLE_FOOD" = "FOOD";
+"COUNTERSEXAMPLE_FOOD_1" = "Hot-dogs";
+"COUNTERSEXAMPLE_FOOD_2" = "Cupcakes eaten";
+"COUNTERSEXAMPLE_FOOD_3" = "Fruits";
+"COUNTERSEXAMPLE_FOOD_4" = "Nuts";
+
+"COUNTERSEXAMPLE_MISC" = "MISC";
+"COUNTERSEXAMPLE_MISC_1" = "Times sneezed";
+"COUNTERSEXAMPLE_MISC_2" = "Naps";
+"COUNTERSEXAMPLE_MISC_3" = "Blinks";
+
+// MARK: - CountersAlertPresenter
+"COUNTERSALERTPRESENTER_RETRY" = "Tentar novamente";
+"COUNTERSALERTPRESENTER_DISMISS" = "Dispensar";

@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Counters
+*/
+
+// MARK: - App Name
+"APP_NAME" = "Räknare";
+
+// MARK: - Welcome
+"WELCOME_TITLE" = "Välkommen till räknare";
+"WELCOME_DESCRIPTION" = "Ett exempel på app som synkroniseras med en Node.js-server som körs på din Mac.";
+
+"WELCOME_ADD_FEATURE_TITLE" = "Lägg till nästan vad som helst";
+"WELCOME_ADD_FEATURE_DESCRIPTION" = "Fånga koppar lattes, frapuccinos eller något annat som kan räknas.";
+
+"WELCOME_COUNT_SHARE_FEATURE_TITLE" = "Räkna till dig själv eller med någon";
+"WELCOME_COUNT_SHARE_FEATURE_DESCRIPTION" = "Andra kan visa eller göra ändringar. Det finns inget autentiserings-API.";
+
+"WELCOME_COUNT_FEATURE_TITLE" = "Räkna dina tankar";
+"WELCOME_COUNT_FEATURE_DESCRIPTION" = "Möjligheterna är bokstavligen oändliga.";
+
+"WELCOME_PRIMARY_ACTION_TITLE" = "Fortsätt";
+
+// MARK: - CountersList
+"COUNTERSLIST_SEARCH" = "Sök";
+
+"COUNTERLIST_EMPTY_TITLE" = "Inga räknare ännu";
+"COUNTERLIST_EMPTY_SUBTITLE" = "\“När jag började räkna mina välsignelser vände hela mitt liv.\“ \n —Willie Nelson";
+"COUNTERLIST_EMPTY_BUTTON" = "Skapa en räknare";
+
+"COUNTERLIST_ERROR_TITLE" = "Det gick inte att ladda räknarna";
+"COUNTERLIST_ERROR_SUBTITLE" = "Internetanslutningen verkar vara offline.";
+"COUNTERLIST_ERROR_BUTTON" = "Försök igen";
+
+"COUNTERLIST_ALERT_DELETE_COUNTER" = "Ta bort %d räknare";
+"COUNTERLIST_ALERT_DELETE_COUNTERS" = "Ta bort %d räknare";
+
+"COUNTERLIST_BOTTOM_TITLE_ITEM" = "%d objekt · Räknat %d gånger";
+"COUNTERLIST_BOTTOM_TITLE_ITEMS" = "%d objekt · Räknade %d gånger";
+
+"COUNTERSLIST_FAIL_RELOAD_MESSAGE" = "Det gick inte att ladda räknaren";
+"COUNTERSLIST_FAIL_DELETE_MESSAGE" = "Det gick inte att ta bort räknaren \“%@\“";
+"COUNTERSLIST_FAIL_UPDATE_MESSAGE" = "Det gick inte att uppdatera \“%@\“ räknaren %d";
+
+"COUNTERLIST_NORESULTS_TITLE" = "Inga resultat";
+
+// MARK: - CountersCreate
+"COUNTERSCREATE_TITLE" = "Skapa en räknare";
+"COUNTERSCREATE_PLACEHOLDER_TXT" = "Koppar kaffe";
+"COUNTERSCREATE_DESCRIPTION" = "Ge det ett namn: Annonsblock? Se exempel.";
+"COUNTERSCREATE_EXAMPLES" = "exempel";
+
+"COUNTERSCREATE_FAIL_MESSAGE" = "Det gick inte att skapa räknaren";
+
+// MARK: - CountersExample
+"COUNTERSEXAMPLE_TITLE" = "Exempel";
+"COUNTERSEXAMPLE_SUBTITLE" = "Välj ett exempel för att lägga till det i dina räknare.";
+
+"COUNTERSEXAMPLE_DRINKS" = "DRINKS";
+"COUNTERSEXAMPLE_DRINKS_1" = "Cups of coffee";
+"COUNTERSEXAMPLE_DRINKS_2" = "Glasses of water";
+"COUNTERSEXAMPLE_DRINKS_3" = "Hot chocolate";
+"COUNTERSEXAMPLE_DRINKS_4" = "Milk";
+"COUNTERSEXAMPLE_DRINKS_5" = "Beer";
+
+"COUNTERSEXAMPLE_FOOD" = "FOOD";
+"COUNTERSEXAMPLE_FOOD_1" = "Hot-dogs";
+"COUNTERSEXAMPLE_FOOD_2" = "Cupcakes eaten";
+"COUNTERSEXAMPLE_FOOD_3" = "Fruits";
+"COUNTERSEXAMPLE_FOOD_4" = "Nuts";
+
+"COUNTERSEXAMPLE_MISC" = "MISC";
+"COUNTERSEXAMPLE_MISC_1" = "Times sneezed";
+"COUNTERSEXAMPLE_MISC_2" = "Naps";
+"COUNTERSEXAMPLE_MISC_3" = "Blinks";
+
+// MARK: - CountersAlertPresenter
+"COUNTERSALERTPRESENTER_RETRY" = "Försök igen";
+"COUNTERSALERTPRESENTER_DISMISS" = "Avvisa";
