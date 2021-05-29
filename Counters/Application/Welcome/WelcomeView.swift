@@ -172,5 +172,6 @@ private extension WelcomeView {
 private extension WelcomeView {
     @objc func didPressContinue() {
         NotificationCenter.default.post(name: WelcomeView.NotifPressContinue, object: nil)
+        CountersSoundEffect.sharedInstance.stop()
     }
 }

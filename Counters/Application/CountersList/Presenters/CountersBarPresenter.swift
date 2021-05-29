@@ -45,10 +45,12 @@ final class CountersBarPresenter {
         deleteButton.isEnabled = false
         shareButton.isEnabled = false
         editAction?(true)
+        CountersSoundEffect.sharedInstance.start(.editing)
     }
     
     @objc private func doneButtonPressed() {
         editAction?(false)
+        CountersSoundEffect.sharedInstance.stop()
     }
     
     @objc private func selectAllButtonPressed() {

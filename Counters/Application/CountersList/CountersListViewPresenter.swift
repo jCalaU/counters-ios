@@ -32,15 +32,19 @@ extension CountersListViewPresenter: CountersListViewControllerPresenter {
         
         let alertController = UIAlertController(title: view.title, message: view.message, preferredStyle: .alert)
         let actionRetry = UIAlertAction(title: view.actionTitles[0], style: .cancel) { _ in
+            CountersSoundEffect.sharedInstance.stop()
             guard !view.actions.isEmpty else {return}
             view.actions[0]()
         }
         if view.actionTitles.count > 1 {
-            let actionDismiss = UIAlertAction(title: view.actionTitles[1], style: .default, handler: nil)
+            let actionDismiss = UIAlertAction(title: view.actionTitles[1], style: .default) { _ in
+                CountersSoundEffect.sharedInstance.stop()
+            }
             alertController.addAction(actionDismiss)
         }
         alertController.addAction(actionRetry)
         
         viewController.present(alertController, animated: true)
+        CountersSoundEffect.sharedInstance.start(.error)
     }
 }
