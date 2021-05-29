@@ -13,6 +13,7 @@ extension UIColor {
     static let yellowCsm = UIColor(named: "Yellow")
     static let accentColor = UIColor(named: "AccentColor")
     static let background = UIColor(named: "Background")
+    static let backgroundCell = UIColor(named: "BackgroundCell")
     static let navigationBar = UIColor(named: "NavigationBar")
     static let primaryText = UIColor(named: "PrimaryText")
     static let secondaryText = UIColor(named: "SecondaryText")

@@ -53,7 +53,7 @@ private extension TagCollectionViewCell {
         titleLabel.layer.cornerRadius = LayoutConstants.cornerRadius
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = .white
+        titleLabel.backgroundColor = .backgroundCell
     }
     
     func setupHierarchy() {

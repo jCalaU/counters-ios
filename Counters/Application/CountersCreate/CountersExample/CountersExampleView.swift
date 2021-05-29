@@ -174,7 +174,7 @@ extension CountersExampleView: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! TagCollectionViewCell
         cell.titleLabel.text  = tagsExamples[collectionView.tag].tags[indexPath.row]
-        cell.backgroundColor = .white
+        cell.backgroundColor = .backgroundCell
         cell.layer.cornerRadius = 9
 
         return cell

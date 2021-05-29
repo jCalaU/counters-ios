@@ -70,7 +70,7 @@ private extension CounterTableViewCell {
     func setupContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        containerView.backgroundColor = .white
+        containerView.backgroundColor = .backgroundCell
         containerView.clipsToBounds = true
         containerView.layer.cornerRadius = 8
     }
