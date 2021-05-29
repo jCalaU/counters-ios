@@ -40,6 +40,7 @@
 		3BABF457265B515A00BE27AA /* CountersExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF454265B515A00BE27AA /* CountersExampleViewController.swift */; };
 		3BABF458265B515A00BE27AA /* CountersExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF455265B515A00BE27AA /* CountersExampleView.swift */; };
 		3BABF459265B515A00BE27AA /* CountersExampleViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABF456265B515A00BE27AA /* CountersExampleViewPresenter.swift */; };
+		3BE068EB2662B7DE00A0DC9A /* CountersAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE068EA2662B7DE00A0DC9A /* CountersAPITests.swift */; };
 		3BE12CFF2661FA87008870D4 /* tagsExample_es.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BE12CFD2661FA87008870D4 /* tagsExample_es.json */; };
 		3BE12D002661FA87008870D4 /* tagsExample_en.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BE12CFE2661FA87008870D4 /* tagsExample_en.json */; };
 		3BE12D0B2661FD18008870D4 /* tagsExample_fr.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BE12D082661FD18008870D4 /* tagsExample_fr.json */; };
@@ -50,7 +51,7 @@
 		DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256F25CC8D4200851431 /* WelcomeViewController.swift */; };
 		DECA257525CC8D4300851431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DECA257425CC8D4300851431 /* Assets.xcassets */; };
 		DECA257825CC8D4300851431 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECA257625CC8D4300851431 /* LaunchScreen.storyboard */; };
-		DECA258325CC8D4300851431 /* CountersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA258225CC8D4300851431 /* CountersTests.swift */; };
+		DECA258325CC8D4300851431 /* CountersStatePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA258225CC8D4300851431 /* CountersStatePresenterTests.swift */; };
 		DECA258E25CC8D4300851431 /* CountersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA258D25CC8D4300851431 /* CountersUITests.swift */; };
 		DEED7FCE25CC975D00BA0CDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DEED7FD025CC975D00BA0CDB /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		3BABF454265B515A00BE27AA /* CountersExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersExampleViewController.swift; sourceTree = "<group>"; };
 		3BABF455265B515A00BE27AA /* CountersExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersExampleView.swift; sourceTree = "<group>"; };
 		3BABF456265B515A00BE27AA /* CountersExampleViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountersExampleViewPresenter.swift; sourceTree = "<group>"; };
+		3BE068EA2662B7DE00A0DC9A /* CountersAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersAPITests.swift; sourceTree = "<group>"; };
 		3BE12CF72661F476008870D4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3BE12CF82661F480008870D4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3BE12CF92661F4D9008870D4 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 		DECA257725CC8D4300851431 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DECA257925CC8D4300851431 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DECA257E25CC8D4300851431 /* CountersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DECA258225CC8D4300851431 /* CountersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersTests.swift; sourceTree = "<group>"; };
+		DECA258225CC8D4300851431 /* CountersStatePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersStatePresenterTests.swift; sourceTree = "<group>"; };
 		DECA258425CC8D4300851431 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DECA258925CC8D4300851431 /* CountersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA258D25CC8D4300851431 /* CountersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersUITests.swift; sourceTree = "<group>"; };
@@ -328,7 +330,8 @@
 		DECA258125CC8D4300851431 /* CountersTests */ = {
 			isa = PBXGroup;
 			children = (
-				DECA258225CC8D4300851431 /* CountersTests.swift */,
+				DECA258225CC8D4300851431 /* CountersStatePresenterTests.swift */,
+				3BE068EA2662B7DE00A0DC9A /* CountersAPITests.swift */,
 				DECA258425CC8D4300851431 /* Info.plist */,
 			);
 			path = CountersTests;
@@ -586,7 +589,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DECA258325CC8D4300851431 /* CountersTests.swift in Sources */,
+				DECA258325CC8D4300851431 /* CountersStatePresenterTests.swift in Sources */,
+				3BE068EB2662B7DE00A0DC9A /* CountersAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

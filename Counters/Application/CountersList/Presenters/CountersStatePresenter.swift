@@ -12,6 +12,7 @@ enum ViewState : String {
 }
 
 protocol CountersListState {
+    func validState(_ state: ViewState)
     func setLoadingState()
     func setEmptyState()
     func setErrorState()
@@ -54,6 +55,30 @@ final class CountersStatePresenter {
 
 extension CountersStatePresenter: CountersListState {
     
+    func validState(_ state: ViewState) {
+        countersListViewController.innerView.countersdb = self.getCountersCellPresenter()
+
+        switch state {
+        // Error
+        case .error:
+            if  countersListViewController.innerView.countersdb.count == 0 {
+                setErrorState()
+            } else {
+                setContentState()
+            }
+        // Content
+        case .content:
+            if  countersListViewController.innerView.countersdb.count == 0 {
+                setEmptyState()
+            } else {
+                setContentState()
+            }
+
+        default:
+            Logger("o_O")
+        }
+    }
+    
     func setLoadingState() {
         countersListViewController.innerView.currentState = .loading
         countersListViewController.innerView.activityIndicator.startAnimating()
@@ -70,7 +95,11 @@ extension CountersStatePresenter: CountersListState {
         countersListViewController.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
 
         countersListViewController.innerView.currentState = .empty
+        countersListViewController.innerView.activityIndicator.stopAnimating()
+        
         barPresenter.enableEditButton(false)
+        
+        self.updateViewState()
     }
     
     func setErrorState() {
@@ -79,20 +108,12 @@ extension CountersStatePresenter: CountersListState {
                                         "COUNTERLIST_ERROR_BUTTON".localized,
                                         countersListViewController.getAllCountersFromServer)
         countersListViewController.innerView.tableView.backgroundView = countersListViewController.innerEmptyView
-
         countersListViewController.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
 
         countersListViewController.innerView.currentState = .error
         countersListViewController.innerView.activityIndicator.stopAnimating()
 
         barPresenter.enableEditButton(false)
-
-        countersListViewController.innerView.countersdb = self.getCountersCellPresenter()
-        if countersListViewController.innerView.countersdb.count != 0 {
-            countersListViewController.innerView.tableView.backgroundView = nil
-            countersListViewController.innerView.currentState = .content
-            barPresenter.enableEditButton(true)
-        }
 
         self.updateViewState()
     }
@@ -103,12 +124,8 @@ extension CountersStatePresenter: CountersListState {
         
         countersListViewController.innerView.tableView.backgroundView = nil
         countersListViewController.navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
-        barPresenter.enableEditButton(true)
 
-        countersListViewController.innerView.countersdb = self.getCountersCellPresenter()
-        if countersListViewController.innerView.countersdb.count == 0 {
-            self.setEmptyState()
-        }
+        barPresenter.enableEditButton(true)
 
         self.updateViewState()
     }
@@ -118,7 +135,7 @@ extension CountersStatePresenter: CountersListState {
 extension CountersStatePresenter : CountersCellPresenterDelegate {
     
     func reloadTableView() {
-        self.setContentState()
+        self.validState(.content)
     }
     
     func showErrorMessage(_ title:String, _ error:Error?, _ retryAction: @escaping (() -> Void)) {

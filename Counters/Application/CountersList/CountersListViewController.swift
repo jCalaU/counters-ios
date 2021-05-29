@@ -64,7 +64,7 @@ class CountersListViewController: UIViewController {
     }
     
     func setStatePresenterContentState() {
-        statePresenter.setContentState()
+        statePresenter.validState(.content)
     }    
 }
 
@@ -95,11 +95,11 @@ extension CountersListViewController {
             self.refreshControl.endRefreshing()
             guard isSuccess else {
                 self.showErrorMessageSimple("COUNTERSLIST_FAIL_RELOAD_MESSAGE".localized, error, self)
-                self.statePresenter.setErrorState()
+                self.statePresenter.validState(.error)
                 return
             }
 
-            self.statePresenter.setContentState()
+            self.statePresenter.validState(.content)
         })
 
         HTTPClient.sharedInstance.userRequestToServer(nil,
@@ -130,7 +130,7 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
                 return
             }
 
-            self.statePresenter.setContentState()
+            self.statePresenter.validState(.content)
             viewController.dismiss(animated: true)
         })
         
