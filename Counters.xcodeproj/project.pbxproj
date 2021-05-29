@@ -22,8 +22,9 @@
 		3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */; };
 		3B22EB2C26615DDD00A14FA2 /* UserDefaults+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */; };
 		3B22EB312661715F00A14FA2 /* CountersListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB302661715F00A14FA2 /* CountersListEmptyView.swift */; };
-		3B22EB482661DB9F00A14FA2 /* CounterAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB472661DB9F00A14FA2 /* CounterAlertPresenter.swift */; };
-		3B2431CB265DFCF50052C13F /* CounterCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */; };
+		3B22EB482661DB9F00A14FA2 /* CountersAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB472661DB9F00A14FA2 /* CountersAlertPresenter.swift */; };
+		3B22EB4E2661DDCD00A14FA2 /* CountersStatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22EB4D2661DDCD00A14FA2 /* CountersStatePresenter.swift */; };
+		3B2431CB265DFCF50052C13F /* CountersCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2431CA265DFCF40052C13F /* CountersCellPresenter.swift */; };
 		3B3EB980265C27C7002149A1 /* CNCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB97F265C27C7002149A1 /* CNCoreData.swift */; };
 		3B3EB989265C2821002149A1 /* CountersDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB987265C2821002149A1 /* CountersDB.xcdatamodeld */; };
 		3B3EB98F265C28E0002149A1 /* CNCounters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EB98D265C28E0002149A1 /* CNCounters.swift */; };
@@ -85,8 +86,9 @@
 		3B1C91C22658AAAE00B3090F /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
 		3B22EB2B26615DDD00A14FA2 /* UserDefaults+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Config.swift"; sourceTree = "<group>"; };
 		3B22EB302661715F00A14FA2 /* CountersListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersListEmptyView.swift; sourceTree = "<group>"; };
-		3B22EB472661DB9F00A14FA2 /* CounterAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAlertPresenter.swift; sourceTree = "<group>"; };
-		3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCellPresenter.swift; sourceTree = "<group>"; };
+		3B22EB472661DB9F00A14FA2 /* CountersAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersAlertPresenter.swift; sourceTree = "<group>"; };
+		3B22EB4D2661DDCD00A14FA2 /* CountersStatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersStatePresenter.swift; sourceTree = "<group>"; };
+		3B2431CA265DFCF40052C13F /* CountersCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersCellPresenter.swift; sourceTree = "<group>"; };
 		3B3EB97F265C27C7002149A1 /* CNCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNCoreData.swift; sourceTree = "<group>"; };
 		3B3EB988265C2821002149A1 /* CountersDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CountersDB.xcdatamodel; sourceTree = "<group>"; };
 		3B3EB98D265C28E0002149A1 /* CNCounters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNCounters.swift; sourceTree = "<group>"; };
@@ -207,9 +209,10 @@
 		3B22EB4C2661DC5D00A14FA2 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				3B22EB472661DB9F00A14FA2 /* CounterAlertPresenter.swift */,
+				3B22EB472661DB9F00A14FA2 /* CountersAlertPresenter.swift */,
 				3B1C919D2658451500B3090F /* CountersBarPresenter.swift */,
-				3B2431CA265DFCF40052C13F /* CounterCellPresenter.swift */,
+				3B2431CA265DFCF40052C13F /* CountersCellPresenter.swift */,
+				3B22EB4D2661DDCD00A14FA2 /* CountersStatePresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -524,7 +527,7 @@
 				3B3EB9B2265C4146002149A1 /* HTTPClient.swift in Sources */,
 				3B1C916826580D4D00B3090F /* CountersListView.swift in Sources */,
 				3B1C91C32658AAAE00B3090F /* UIColor+Palette.swift in Sources */,
-				3B22EB482661DB9F00A14FA2 /* CounterAlertPresenter.swift in Sources */,
+				3B22EB482661DB9F00A14FA2 /* CountersAlertPresenter.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				3BABF42C265A962200BE27AA /* CountersCreateView.swift in Sources */,
 				3B706B66266006D700ECD201 /* TagTableViewCell.swift in Sources */,
@@ -532,13 +535,14 @@
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
 				3B706B5B266003F000ECD201 /* TagCollectionViewCell.swift in Sources */,
 				3B3EB989265C2821002149A1 /* CountersDB.xcdatamodeld in Sources */,
-				3B2431CB265DFCF50052C13F /* CounterCellPresenter.swift in Sources */,
+				3B2431CB265DFCF50052C13F /* CountersCellPresenter.swift in Sources */,
 				3B3EB98F265C28E0002149A1 /* CNCounters.swift in Sources */,
 				3B1C919E2658451500B3090F /* CountersBarPresenter.swift in Sources */,
 				3B3EB9B7265C4154002149A1 /* HTTPResponse.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
 				3B1C91B92658A32E00B3090F /* Constants.swift in Sources */,
 				3B1C91B32658A28900B3090F /* String+Localizable.swift in Sources */,
+				3B22EB4E2661DDCD00A14FA2 /* CountersStatePresenter.swift in Sources */,
 				3B1C916926580D4D00B3090F /* CountersListViewPresenter.swift in Sources */,
 				3BABF429265A962200BE27AA /* CountersCreateViewPresenter.swift in Sources */,
 				3BABF457265B515A00BE27AA /* CountersExampleViewController.swift in Sources */,

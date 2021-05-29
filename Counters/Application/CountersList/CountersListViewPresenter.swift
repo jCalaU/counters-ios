@@ -6,17 +6,6 @@
 
 import UIKit
 
-enum ViewState : String {
-    case loading, empty, error, content
-}
-
-protocol CountersListState {    
-    func setLoadingState()
-    func setEmptyState()
-    func setErrorState()
-    func setContentState()
-}
-
 internal final class CountersListViewPresenter {
 }
 
@@ -37,7 +26,7 @@ extension CountersListViewPresenter: CountersListViewControllerPresenter {
                      buttonTitle: "COUNTERLIST_EMPTY_BUTTON".localized)
     }
     
-    func display(_ view: CounterAlertPresenter) {
+    func display(_ view: CountersAlertPresenter) {
         
         guard let viewController = view.viewController else { return }
         

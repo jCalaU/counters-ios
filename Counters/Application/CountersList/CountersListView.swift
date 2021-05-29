@@ -26,8 +26,8 @@ internal final class CountersListView: UIView {
     var currentState : ViewState = .loading
     let activityIndicator = UIActivityIndicatorView()
     
-    var countersdb: [CounterCellPresenter] = []
-    var filteredCounters: [CounterCellPresenter] = []
+    var countersdb: [CountersCellPresenter] = []
+    var filteredCounters: [CountersCellPresenter] = []
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -140,7 +140,7 @@ private extension CountersListView {
 extension CountersListView {
     
     func filterContentForSearchText(_ searchText: String) {
-        filteredCounters = countersdb.filter({( c : CounterCellPresenter ) -> Bool in
+        filteredCounters = countersdb.filter({( c : CountersCellPresenter ) -> Bool in
             let countersTitle = "\(c.countersdb.title!)"
           return countersTitle.lowercased().contains(searchText.lowercased())
         })

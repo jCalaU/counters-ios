@@ -136,7 +136,8 @@ extension CountersBarPresenter {
         controller.navigationController?.navigationBar.prefersLargeTitles = true
         controller.navigationController?.isToolbarHidden = false
         controller.navigationController?.isNavigationBarHidden = false
-        
+
+        // Edit counter action
         editAction = { editing in
             controller.innerView.tableView.setEditing(editing, animated: true)
             controller.navigationItem.searchController?.searchBar.isUserInteractionEnabled = !editing
@@ -161,10 +162,12 @@ extension CountersBarPresenter {
     func setBarBottomTitle(_ controller: CountersListViewController) {
         
         guard !controller.innerView.tableView.isEditing else {
+            bottomBarTitleLabel.text = ""
             return
         }
         
         guard controller.innerView.countersdb.count != 0 else {
+            bottomBarTitleLabel.text = ""
             return
         }
         
@@ -209,7 +212,7 @@ private extension CountersBarPresenter {
                         return
                     }
                     
-                    controller.setContentState()
+                    controller.setStatePresenterContentState()
                 }
             })
 

@@ -9,7 +9,7 @@ import UIKit
 protocol CountersListViewControllerPresenter {
     var viewModel: CountersListView.ViewModel { get }
     var viewEmptyModel: CountersListEmptyView.ViewModel { get }
-    func display(_ view: CounterAlertPresenter)
+    func display(_ view: CountersAlertPresenter)
 }
 
 class CountersListViewController: UIViewController {
@@ -17,10 +17,11 @@ class CountersListViewController: UIViewController {
     // MARK: - Properties
 
     lazy var innerView = CountersListView()
-    private lazy var innerEmptyView = CountersListEmptyView()
+    lazy var innerEmptyView = CountersListEmptyView()
     private let presenter: CountersListViewControllerPresenter
     private let barPresenter : CountersBarPresenter
     private let refreshControl = UIRefreshControl()
+    private let statePresenter = CountersStatePresenter()
 
     // MARK: - Initialization
 
@@ -43,7 +44,11 @@ class CountersListViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "APP_NAME".localized
-        self.setLoadingState()
+        self.statePresenter.countersListViewController = self
+        self.statePresenter.barPresenter = self.barPresenter
+        self.statePresenter.countersListpresenter = self.presenter
+        
+        self.statePresenter.setLoadingState()
         self.getAllCountersFromServer()
         
         setupLayout()
@@ -57,6 +62,10 @@ class CountersListViewController: UIViewController {
         setupBarControler()
         setupRefreshControl()
     }
+    
+    func setStatePresenterContentState() {
+        statePresenter.setContentState()
+    }    
 }
 
     // MARK: - Extension
@@ -77,54 +86,8 @@ private extension CountersListViewController {
     }
 }
 
-// MARK: - CounterCellPresenterDelegate
-extension CountersListViewController : CounterCellPresenterDelegate {
-    
-    func reloadTableView() {
-        self.setContentState()
-    }
-    
-    func showErrorMessage(_ title:String, _ error:Error?, _ retryAction: @escaping (() -> Void)) {
-        var alertMessage = "Error".localized
-        if let err = error {
-            alertMessage = err.localizedDescription
-        }
-        
-        let retryTitle = "COUNTERALERTPRESENTER_RETRY".localized
-        let dismissTitle = "COUNTERALERTPRESENTER_DISMISS".localized
-        self.presenter.display(.error(
-                            title: title,
-                            message: alertMessage,
-                            actionTitles: [retryTitle, dismissTitle],
-                            actions: [retryAction],
-                            viewController: self
-        ))
-    }
-}
-
     // MARK: - Extension Network
-private extension CountersListViewController {
-    
-    func updateViewState() {
-        if self.innerView.isFiltering {
-            self.innerView.filterContentForSearchText(self.innerView.searchController.searchBar.text!)
-        }
-        self.barPresenter.setBarBottomTitle(self)
-        self.innerView.tableView.reloadData()
-    }
-    
-    func getCounterCellPresenter() -> [CounterCellPresenter] {
-    
-        var counterCellArray = [CounterCellPresenter]()
-        let fetchedObjects = CNCoreData.sharedInstance.getCNCounters()
-        for obj in fetchedObjects {
-            let counterCell = CounterCellPresenter(obj)
-            counterCell.delegate = self
-            counterCellArray.append(counterCell)
-        }
-        
-        return counterCellArray
-    }
+extension CountersListViewController {
     
     func getAllCountersFromServer() {
         
@@ -132,11 +95,11 @@ private extension CountersListViewController {
             self.refreshControl.endRefreshing()
             guard isSuccess else {
                 self.showErrorMessageSimple("COUNTERSLIST_FAIL_RELOAD_MESSAGE".localized, error, self)
-                self.setErrorState()
+                self.statePresenter.setErrorState()
                 return
             }
 
-            self.setContentState()
+            self.statePresenter.setContentState()
         })
 
         HTTPClient.sharedInstance.userRequestToServer(nil,
@@ -167,7 +130,7 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
                 return
             }
 
-            self.setContentState()
+            self.statePresenter.setContentState()
             viewController.dismiss(animated: true)
         })
         
@@ -183,7 +146,7 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
             alertMessage = err.localizedDescription
         }
         
-        let dismissTitle = "COUNTERALERTPRESENTER_DISMISS".localized
+        let dismissTitle = "COUNTERSALERTPRESENTER_DISMISS".localized
         self.presenter.display(.error(
                             title: title,
                             message: alertMessage,
@@ -191,72 +154,6 @@ extension CountersListViewController: CountersCreateViewControllerDelegate {
                             actions: [],
                             viewController: viewController
         ))
-    }
-}
-
-
-
-extension CountersListViewController: CountersListState {
-    
-    func setLoadingState() {
-        self.innerView.currentState = .loading
-        self.innerView.activityIndicator.startAnimating()
-        self.barPresenter.enableEditButton(false)
-        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
-    }
-    
-    func setEmptyState() {
-        
-        self.innerEmptyView.updateTexts("COUNTERLIST_EMPTY_TITLE".localized,
-                                        "COUNTERLIST_EMPTY_SUBTITLE".localized,
-                                        "COUNTERLIST_EMPTY_BUTTON".localized,
-                                        self.barPresenter.addButtonPressed)
-        self.innerView.tableView.backgroundView = self.innerEmptyView
-        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
-        
-        self.innerView.currentState = .empty
-        self.barPresenter.enableEditButton(false)
-    }
-    
-    func setErrorState() {
-        
-        self.innerEmptyView.updateTexts("COUNTERLIST_ERROR_TITLE".localized,
-                                        "COUNTERLIST_ERROR_SUBTITLE".localized,
-                                        "COUNTERLIST_ERROR_BUTTON".localized,
-                                        self.getAllCountersFromServer)
-        self.innerView.tableView.backgroundView = self.innerEmptyView
-        
-        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
-        
-        self.innerView.currentState = .error
-        self.innerView.activityIndicator.stopAnimating()
-
-        self.barPresenter.enableEditButton(false)
-
-        self.innerView.countersdb = self.getCounterCellPresenter()
-        if self.innerView.countersdb.count != 0 {
-            self.innerView.tableView.backgroundView = nil
-            self.innerView.currentState = .content
-            self.barPresenter.enableEditButton(true)
-        }
-
-        self.updateViewState()
-    }
-    
-    func setContentState() {
-        self.innerView.currentState = .content
-        self.innerView.activityIndicator.stopAnimating()
-        
-        self.innerView.tableView.backgroundView = nil
-        self.navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
-        self.barPresenter.enableEditButton(true)
-
-        self.innerView.countersdb = self.getCounterCellPresenter()
-        if self.innerView.countersdb.count == 0 {
-            self.setEmptyState()
-        }
-
-        self.updateViewState()
     }
 }
 

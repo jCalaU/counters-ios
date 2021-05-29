@@ -1,5 +1,5 @@
 //
-//  CounterCellPresenter.swift
+//  CountersCellPresenter.swift
 //  Counters
 //
 //  Created by Javier Cala Uribe on 25/5/21.
@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol CounterCellPresenterDelegate {
+protocol CountersCellPresenterDelegate {
     func reloadTableView()
     func showErrorMessage(_ title:String, _ error:Error?, _ retryAction: @escaping (() -> Void))
 }
 
-final class CounterCellPresenter {
+final class CountersCellPresenter {
     
     let countersdb : CNCounters
-    var delegate: CounterCellPresenterDelegate?
+    var delegate: CountersCellPresenterDelegate?
     
     init(_ counter: CNCounters) {
         countersdb = counter
